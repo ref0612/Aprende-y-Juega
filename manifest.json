@@ -1,0 +1,16 @@
+{
+  "name": "Juegos Educativos Niños",
+  "short_name": "JuegosNiños",
+  "start_url": "./index.html",
+  "display": "fullscreen",
+  "background_color": "#FFEB3B",
+  "theme_color": "#FFEB3B",
+  "orientation": "landscape",
+  "icons": [
+    {
+      "src": "assets/img/icono.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}

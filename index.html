@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Juego Infantil Premium</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="nube nube1">☁️</div>
+    <div class="nube nube2">☁️</div>
+
+    <div id="pantalla-inicio" class="pantalla-completa">
+        <h1 class="titulo-animado">¡Aprende y Juega!</h1>
+        <button id="boton-empezar" class="boton-3d boton-jugar">▶️ JUGAR</button>
+    </div>
+
+    <div id="pantalla-mundos" class="pantalla-completa" style="display: none;">
+        <button id="btn-padres-menu" class="btn-esquina">⚙️</button>
+        <h1 class="titulo-animado" style="margin-bottom: 30px;">Elige un Mundo</h1>
+        <div class="contenedor-mundos">
+            <button class="boton-mundo" onclick="iniciarMundo('animales')" style="background-color: #FF9800;">🐶 Animales</button>
+            <button class="boton-mundo" onclick="iniciarMundo('colores')" style="background-color: #E91E63;">🔴 Colores</button>
+            <button class="boton-mundo" onclick="iniciarMundo('formas')" style="background-color: #00BCD4;">⭐ Formas</button>
+        </div>
+    </div>
+
+    <div id="pantalla-juego" style="display: none;">
+        <header id="ui-superior">
+            <button id="btn-volver" style="background:none; border:none; font-size:2rem; cursor:pointer;">🏠</button>
+            <div id="estrellas">⭐ <span id="contador-estrellas">0</span></div>
+            <div id="nivel-actual">Nivel <span id="texto-nivel">1</span></div>
+        </header>
+
+        <main id="area-juego">
+            <h1 id="instruccion">Cargando...</h1>
+            <div id="contenedor-opciones"></div> 
+        </main>
+    </div>
+
+    <div id="modal-padres" style="display:none;" class="modal-overlay">
+        <div class="modal-contenido">
+            <h2>👨‍👩‍👧 Panel para Padres</h2>
+            <p>Estrellas ganadas: <b><span id="stats-estrellas">0</span> ⭐</b></p>
+            <p>Tiempo de uso: <b><span id="stats-tiempo">0</span> min</b></p>
+            <button onclick="document.getElementById('modal-padres').style.display='none'" class="boton-3d boton-error">Cerrar</button>
+        </div>
+    </div>
+
+    <script src="js/niveles.js"></script>
+    <script src="js/motor.js"></script>
+</body>
+</html>
