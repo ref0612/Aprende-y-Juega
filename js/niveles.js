@@ -104,9 +104,9 @@ function generarNiveles(categoria, cantidadTotal) {
     return nivelesGenerados;
 }
 
-// 4. CREAR LOS MUNDOS (Construimos 50 niveles por cada uno)
+// 4. CREAR LOS MUNDOS (Construimos 80 niveles por cada uno)
 const mundosData = {
-    "animales": generarNiveles("animales", 50),
-    "colores": generarNiveles("colores", 50),
-    "formas": generarNiveles("formas", 50)
+    "animales": generarNiveles("animales", 80),
+    "colores": generarNiveles("colores", 80),
+    "formas": generarNiveles("formas", 80)
 };
