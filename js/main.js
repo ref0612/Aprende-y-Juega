@@ -155,15 +155,20 @@ class AppController {
     }
 
     _iniciarModulo(modName) {
+        this.juegoActivo = true; // Activamos el motor del juego
         this.moduloActual    = modName;
         this.nivelesActuales = this.mundosData[modName];
         this.indiceNivel     = 0;
+
         GameEngine.resetSession();
+
         this.elMenu.classList.add('hidden');
         this.elHeader.classList.add('hidden');
         this.elCanvas.classList.remove('hidden');
         this.elStatsBar.classList.remove('hidden');
+
         if (this.elModTitle) this.elModTitle.textContent = MODULOS_META[modName]?.titulo || modName;
+
         this._actualizarProgreso();
         this._cargarNivel();
     }
@@ -178,6 +183,7 @@ class AppController {
 
         const datos = this.nivelesActuales[this.indiceNivel];
         const onCompleto = async () => {
+            if (!this.juegoActivo) return; // <--- Si el niño se fue al menú, ignoramos la victoria
             if (this.indiceNivel > 0 && this.indiceNivel % 5 === 0) {
                 await Transicion.mostrarBravo(this.elContent, '¡Sigue así!', '🌟');
             }
@@ -225,6 +231,7 @@ class AppController {
     }
 
     _regresarAlMenu() {
+        this.juegoActivo = false; // <--- EL ESCUDO: Apagamos el motor
         this.elCanvas.classList.add('hidden');
         this.elStatsBar.classList.add('hidden');
         this.elHeader.classList.remove('hidden');

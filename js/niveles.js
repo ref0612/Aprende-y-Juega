@@ -69,55 +69,151 @@ function _crearFormas() {
 // ─── DICCIONARIOS ──────────────────────────────────────────────────────────────
 const diccionarios = {
     animales: [
-        { id:'dog',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Dog/3D/dog_3d.png',           color:'#FFECB3', nombre:'perrito',          articulo:'el', destino:'casita' },
-        { id:'cat',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cat/3D/cat_3d.png',           color:'#FFECB3', nombre:'gatito',           articulo:'el', destino:'casita' },
-        { id:'dolphin', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Dolphin/3D/dolphin_3d.png',   color:'#E0F7FA', nombre:'delfín',           articulo:'el', destino:'mar' },
-        { id:'shark',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shark/3D/shark_3d.png',       color:'#E0F7FA', nombre:'tiburón',          articulo:'el', destino:'mar' },
-        { id:'monkey',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Monkey/3D/monkey_3d.png',     color:'#D7CCC8', nombre:'mono',             articulo:'el', destino:'casita' },
-        { id:'pig',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pig/3D/pig_3d.png',           color:'#FCE4EC', nombre:'cerdito',          articulo:'el', destino:'casita' },
-        { id:'frog',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Frog/3D/frog_3d.png',         color:'#E8F5E9', nombre:'ranita',           articulo:'la', destino:'casita' },
-        { id:'penguin', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Penguin/3D/penguin_3d.png',   color:'#E0F2F1', nombre:'pingüino',         articulo:'el', destino:'mar' },
-        { id:'whale',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Whale/3D/whale_3d.png',       color:'#E3F2FD', nombre:'ballena',          articulo:'la', destino:'mar' },
-        { id:'elephant',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Elephant/3D/elephant_3d.png', color:'#ECEFF1', nombre:'elefante',         articulo:'el', destino:'casita' },
-        { id:'giraffe', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Giraffe/3D/giraffe_3d.png',   color:'#FFF9C4', nombre:'jirafa',           articulo:'la', destino:'casita' },
-        { id:'lion',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lion/3D/lion_3d.png',         color:'#FFF3E0', nombre:'león',             articulo:'el', destino:'casita' },
-        { id:'rabbit',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rabbit/3D/rabbit_3d.png',     color:'#FCE4EC', nombre:'conejito',         articulo:'el', destino:'casita' },
-        { id:'bear',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bear/3D/bear_3d.png',         color:'#D7CCC8', nombre:'osito',            articulo:'el', destino:'casita' },
-        { id:'turtle',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Turtle/3D/turtle_3d.png',     color:'#E8F5E9', nombre:'tortuga',          articulo:'la', destino:'casita' },
-        { id:'horse',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Horse/3D/horse_3d.png',       color:'#FFF3E0', nombre:'caballo',          articulo:'el', destino:'casita' },
-        { id:'panda',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Panda/3D/panda_3d.png',       color:'#ECEFF1', nombre:'panda',            articulo:'el', destino:'casita' },
-        { id:'fox',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fox/3D/fox_3d.png',           color:'#FFF3E0', nombre:'zorrito',          articulo:'el', destino:'casita' },
+        // ── GRANJA Y CAMPO ──
+        { id:'cow',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cow/3D/cow_3d.png',           color:'#F5F5F5', nombre:'vaca',             articulo:'la', destino:'granja' },
+        { id:'pig',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Pig/3D/pig_3d.png',           color:'#FCE4EC', nombre:'cerdito',          articulo:'el', destino:'granja' },
+        { id:'chicken',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Chicken/3D/chicken_3d.png',   color:'#FFF9C4', nombre:'gallina',          articulo:'la', destino:'granja' },
+        { id:'rooster',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rooster/3D/rooster_3d.png',   color:'#FFCDD2', nombre:'gallo',            articulo:'el', destino:'granja' },
+        { id:'horse',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Horse/3D/horse_3d.png',       color:'#FFF3E0', nombre:'caballo',          articulo:'el', destino:'granja' },
+        { id:'sheep',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ewe/3D/ewe_3d.png',       color:'#FAFAFA', nombre:'oveja',            articulo:'la', destino:'granja' },
+        { id:'goat',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Goat/3D/goat_3d.png',         color:'#EFEBE9', nombre:'cabra',            articulo:'la', destino:'granja' },
+        { id:'duck',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Duck/3D/duck_3d.png',         color:'#FFF9C4', nombre:'pato',             articulo:'el', destino:'granja' },
+        { id:'turkey',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Turkey/3D/turkey_3d.png',     color:'#D7CCC8', nombre:'pavo',             articulo:'el', destino:'granja' },
+        { id:'llama',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Llama/3D/llama_3d.png',       color:'#EFEBE9', nombre:'llama',            articulo:'la', destino:'granja' },
+        { id:'mouse',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouse/3D/mouse_3d.png',       color:'#ECEFF1', nombre:'ratoncito',        articulo:'el', destino:'granja' },
+        { id:'rat',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rat/3D/rat_3d.png',           color:'#CFD8DC', nombre:'rata',             articulo:'la', destino:'granja' },
+        
+        // ── MASCOTAS ──
+        { id:'dog',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Dog/3D/dog_3d.png',           color:'#FFECB3', nombre:'perrito',          articulo:'el', destino:'casita' },
+        { id:'poodle',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Poodle/3D/poodle_3d.png',     color:'#EFEBE9', nombre:'caniche',          articulo:'el', destino:'casita' },
+        { id:'cat',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Cat/3D/cat_3d.png',           color:'#FFECB3', nombre:'gatito',           articulo:'el', destino:'casita' },
+        { id:'rabbit',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rabbit/3D/rabbit_3d.png',     color:'#FCE4EC', nombre:'conejito',         articulo:'el', destino:'casita' },
+        { id:'hamster',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hamster/3D/hamster_3d.png',   color:'#FFE0B2', nombre:'hámster',          articulo:'el', destino:'casita' },
+        { id:'parrot',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Parrot/3D/parrot_3d.png',      color:'#E8F5E9', nombre:'loro',             articulo:'el', destino:'casita' },
+
+        // ── SELVA, SABANA Y DESIERTO ──
+        { id:'tiger',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tiger/3D/tiger_3d.png',       color:'#FFE0B2', nombre:'tigre',            articulo:'el', destino:'selva' },
+        { id:'lion',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lion/3D/lion_3d.png',         color:'#FFF3E0', nombre:'león',             articulo:'el', destino:'selva' },
+        { id:'elephant', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Elephant/3D/elephant_3d.png', color:'#ECEFF1', nombre:'elefante',         articulo:'el', destino:'selva' },
+        { id:'monkey',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Monkey/3D/monkey_3d.png',     color:'#D7CCC8', nombre:'mono',             articulo:'el', destino:'selva' },
+        { id:'gorilla',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Gorilla/3D/gorilla_3d.png',   color:'#5D4037', nombre:'gorila',           articulo:'el', destino:'selva' },
+        { id:'orangutan',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Orangutan/3D/orangutan_3d.png',color:'#FFCC80', nombre:'orangután',       articulo:'el', destino:'selva' },
+        { id:'giraffe',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Giraffe/3D/giraffe_3d.png',   color:'#FFF9C4', nombre:'jirafa',           articulo:'la', destino:'selva' },
+        { id:'hippo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hippopotamus/3D/hippopotamus_3d.png', color:'#CFD8DC', nombre:'hipopótamo', articulo:'el', destino:'selva' },
+        { id:'rhino',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rhinoceros/3D/rhinoceros_3d.png', color:'#CFD8DC', nombre:'rinoceronte',  articulo:'el', destino:'selva' },
+        { id:'croco',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Crocodile/3D/crocodile_3d.png',color:'#C8E6C9', nombre:'cocodrilo',       articulo:'el', destino:'selva' },
+        { id:'leopard',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Leopard/3D/leopard_3d.png',   color:'#FFF9C4', nombre:'leopardo',         articulo:'el', destino:'selva' },
+        { id:'zebra',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Zebra/3D/zebra_3d.png',       color:'#ECEFF1', nombre:'cebra',            articulo:'la', destino:'selva' },
+        { id:'camel',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Camel/3D/camel_3d.png',       color:'#FFE0B2', nombre:'camello',          articulo:'el', destino:'selva' },
+        { id:'kangaroo', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Kangaroo/3D/kangaroo_3d.png', color:'#FFCC80', nombre:'canguro',          articulo:'el', destino:'selva' },
+        { id:'sloth',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sloth/3D/sloth_3d.png',       color:'#D7CCC8', nombre:'perezoso',         articulo:'el', destino:'selva' },
+
+        // ── BOSQUE Y NIEVE ──
+        { id:'bear',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bear/3D/bear_3d.png',         color:'#A1887F', nombre:'oso',              articulo:'el', destino:'selva' },
+        { id:'polar_bear',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Polar%20bear/3D/polar_bear_3d.png',color:'#E3F2FD', nombre:'oso polar',  articulo:'el', destino:'selva' },
+        { id:'panda',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Panda/3D/panda_3d.png',       color:'#ECEFF1', nombre:'panda',            articulo:'el', destino:'selva' },
+        { id:'fox',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fox/3D/fox_3d.png',           color:'#FFCC80', nombre:'zorro',            articulo:'el', destino:'selva' },
+        { id:'wolf',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Wolf/3D/wolf_3d.png',         color:'#CFD8DC', nombre:'lobo',             articulo:'el', destino:'selva' },
+        { id:'deer',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Deer/3D/deer_3d.png',         color:'#D7CCC8', nombre:'ciervo',           articulo:'el', destino:'selva' },
+        { id:'raccoon',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Raccoon/3D/raccoon_3d.png',   color:'#CFD8DC', nombre:'mapache',          articulo:'el', destino:'selva' },
+        { id:'hedgehog', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hedgehog/3D/hedgehog_3d.png', color:'#D7CCC8', nombre:'erizo',            articulo:'el', destino:'selva' },
+        { id:'squirrel', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Chipmunk/3D/chipmunk_3d.png', color:'#FFE0B2', nombre:'ardilla',          articulo:'la', destino:'selva' },
+        { id:'badger',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Badger/3D/badger_3d.png',     color:'#ECEFF1', nombre:'tejón',            articulo:'el', destino:'selva' },
+        { id:'skunk',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Skunk/3D/skunk_3d.png',       color:'#424242', nombre:'zorrillo',         articulo:'el', destino:'selva' },
+        { id:'bat',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bat/3D/bat_3d.png',           color:'#607D8B', nombre:'murciélago',       articulo:'el', destino:'cielo' },
+
+        // ── OCÉANO Y RÍOS ──
+        { id:'octopus',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Octopus/3D/octopus_3d.png',   color:'#E1BEE7', nombre:'pulpo',            articulo:'el', destino:'mar' },
+        { id:'crab',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Crab/3D/crab_3d.png',         color:'#FFCDD2', nombre:'cangrejo',         articulo:'el', destino:'mar' },
+        { id:'shark',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Shark/3D/shark_3d.png',       color:'#E0F7FA', nombre:'tiburón',          articulo:'el', destino:'mar' },
+        { id:'whale',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Whale/3D/whale_3d.png',       color:'#E3F2FD', nombre:'ballena',          articulo:'la', destino:'mar' },
+        { id:'dolphin',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Dolphin/3D/dolphin_3d.png',   color:'#E1F5FE', nombre:'delfín',           articulo:'el', destino:'mar' },
+        { id:'fish',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fish/3D/fish_3d.png',         color:'#FFF9C4', nombre:'pez',              articulo:'el', destino:'mar' },
+        { id:'tropical', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tropical%20fish/3D/tropical_fish_3d.png',color:'#FFF9C4', nombre:'pez tropical', articulo:'el', destino:'mar' },
+        { id:'blowfish', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Blowfish/3D/blowfish_3d.png', color:'#FFE0B2', nombre:'pez globo',        articulo:'el', destino:'mar' },
+        { id:'turtle',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Turtle/3D/turtle_3d.png',     color:'#E8F5E9', nombre:'tortuga',          articulo:'la', destino:'mar' },
+        { id:'seal',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Seal/3D/seal_3d.png',         color:'#ECEFF1', nombre:'foca',             articulo:'la', destino:'mar' },
+        { id:'squid',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Squid/3D/squid_3d.png',       color:'#FFCDD2', nombre:'calamar',          articulo:'el', destino:'mar' },
+        { id:'otter',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Otter/3D/otter_3d.png',       color:'#D7CCC8', nombre:'nutria',           articulo:'la', destino:'mar' },
+        { id:'penguin',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Penguin/3D/penguin_3d.png',   color:'#E3F2FD', nombre:'pingüino',         articulo:'el', destino:'mar' },
+        { id:'frog',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Frog/3D/frog_3d.png',         color:'#E8F5E9', nombre:'rana',             articulo:'la', destino:'mar' },
+
+        // ── AVES E INSECTOS ──
+        { id:'butterfly',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Butterfly/3D/butterfly_3d.png',color:'#E1F5FE', nombre:'mariposa',        articulo:'la', destino:'cielo' },
+        { id:'bee',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Honeybee/3D/honeybee_3d.png',  color:'#FFF9C4', nombre:'abeja',            articulo:'la', destino:'cielo' },
+        { id:'ladybug',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lady%20beetle/3D/lady_beetle_3d.png',color:'#FFCDD2', nombre:'mariquita', articulo:'la', destino:'cielo' },
+        { id:'owl',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Owl/3D/owl_3d.png',            color:'#D7CCC8', nombre:'búho',             articulo:'el', destino:'cielo' },
+        { id:'eagle',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eagle/3D/eagle_3d.png',        color:'#EFEBE9', nombre:'águila',           articulo:'el', destino:'cielo' },
+        { id:'swan',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Swan/3D/swan_3d.png',          color:'#FAFAFA', nombre:'cisne',            articulo:'el', destino:'mar' },
+        { id:'flamingo', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flamingo/3D/flamingo_3d.png',  color:'#FCE4EC', nombre:'flamenco',         articulo:'el', destino:'mar' },
+        { id:'peacock',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Peacock/3D/peacock_3d.png',    color:'#E0F7FA', nombre:'pavo real',        articulo:'el', destino:'selva' },
+        { id:'ant',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ant/3D/ant_3d.png',            color:'#FFCDD2', nombre:'hormiga',          articulo:'la', destino:'granja' },
+        { id:'snail',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Snail/3D/snail_3d.png',        color:'#DCEDC8', nombre:'caracol',          articulo:'el', destino:'granja' },
+        { id:'worm',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Worm/3D/worm_3d.png',          color:'#F8BBD0', nombre:'gusano',           articulo:'el', destino:'granja' },
+        { id:'spider',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Spider/3D/spider_3d.png',      color:'#CFD8DC', nombre:'araña',            articulo:'la', destino:'granja' },
     ],
 
     cuerpo: [
-        { id:'ojo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eye/3D/eye_3d.png',                                           color:'#E3F2FD', nombre:'ojo',    articulo:'el', descripcion:'para ver los colores', destino:'silueta' },
-        { id:'oreja',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ear/Default/3D/ear_3d_default.png',                           color:'#E3F2FD', nombre:'oreja',  articulo:'la', descripcion:'para escuchar música', destino:'silueta' },
-        { id:'nariz',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Nose/Default/3D/nose_3d_default.png',                         color:'#E3F2FD', nombre:'nariz',  articulo:'la', descripcion:'para oler las flores', destino:'silueta' },
-        { id:'mano',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Waving%20hand/Default/3D/waving_hand_3d_default.png',         color:'#E3F2FD', nombre:'mano',   articulo:'la', descripcion:'para aplaudir',        destino:'silueta' },
-        { id:'pie',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Foot/Default/3D/foot_3d_default.png',                         color:'#E3F2FD', nombre:'pie',    articulo:'el', descripcion:'para correr y saltar', destino:'silueta' },
-        { id:'boca',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouth/3D/mouth_3d.png',                                       color:'#E3F2FD', nombre:'boca',   articulo:'la', descripcion:'para hablar y cantar', destino:'silueta' },
-        { id:'lengua', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tongue/3D/tongue_3d.png',                                     color:'#E3F2FD', nombre:'lengua', articulo:'la', descripcion:'para sentir sabores',  destino:'silueta' },
-        { id:'diente', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tooth/3D/tooth_3d.png',                                       color:'#E3F2FD', nombre:'diente', articulo:'el', descripcion:'para masticar',        destino:'silueta' },
-        { id:'cabeza', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Child/Default/3D/child_3d_default.png',                       color:'#E3F2FD', nombre:'cabeza', articulo:'la', descripcion:'para pensar',          destino:'silueta' },
+        { id:'ojo',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eye/3D/eye_3d.png',                                           color:'#E3F2FD', nombre:'ojo',      articulo:'el', descripcion:'para ver los colores', destino:'silueta' },
+        { id:'oreja',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ear/Default/3D/ear_3d_default.png',                           color:'#E3F2FD', nombre:'oreja',    articulo:'la', descripcion:'para escuchar música', destino:'silueta' },
+        { id:'nariz',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Nose/Default/3D/nose_3d_default.png',                         color:'#E3F2FD', nombre:'nariz',    articulo:'la', descripcion:'para oler las flores', destino:'silueta' },
+        { id:'mano',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Waving%20hand/Default/3D/waving_hand_3d_default.png',         color:'#E3F2FD', nombre:'mano',     articulo:'la', descripcion:'para aplaudir',        destino:'silueta' },
+        { id:'pie',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Foot/Default/3D/foot_3d_default.png',                         color:'#E3F2FD', nombre:'pie',      articulo:'el', descripcion:'para correr y saltar', destino:'silueta' },
+        { id:'boca',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouth/3D/mouth_3d.png',                                       color:'#E3F2FD', nombre:'boca',     articulo:'la', descripcion:'para hablar y cantar', destino:'silueta' },
+        { id:'lengua',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tongue/3D/tongue_3d.png',                                     color:'#E3F2FD', nombre:'lengua',   articulo:'la', descripcion:'para sentir sabores',  destino:'silueta' },
+        { id:'diente',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tooth/3D/tooth_3d.png',                                       color:'#E3F2FD', nombre:'diente',   articulo:'el', descripcion:'para masticar',        destino:'silueta' },
+        { id:'cabeza',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Child/Default/3D/child_3d_default.png',                       color:'#E3F2FD', nombre:'cabeza',   articulo:'la', descripcion:'para pensar',          destino:'silueta' },
+        { id:'pierna',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Leg/Default/3D/leg_3d_default.png',                           color:'#E3F2FD', nombre:'pierna',   articulo:'la', descripcion:'para caminar',         destino:'silueta' },
+        { id:'brazo',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flexed%20biceps/Default/3D/flexed_biceps_3d_default.png',     color:'#E3F2FD', nombre:'brazo',    articulo:'el', descripcion:'para dar abrazos',     destino:'silueta' },
+        { id:'espalda', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bone/3D/bone_3d.png',                                         color:'#E3F2FD', nombre:'hueso',    articulo:'el', descripcion:'para estar derechitos',destino:'silueta' },
+        { id:'corazon', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Anatomical%20heart/3D/anatomical_heart_3d.png',               color:'#FFCDD2', nombre:'corazón',  articulo:'el', descripcion:'para sentir mucho amor', destino:'silueta' },
+        { id:'cerebro', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Brain/3D/brain_3d.png',                                       color:'#F3E5F5', nombre:'cerebro',  articulo:'el', descripcion:'para aprender y soñar', destino:'silueta' },
+        { id:'pulmones',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lungs/3D/lungs_3d.png',                                       color:'#E1F5FE', nombre:'pulmones', articulo:'los',descripcion:'para respirar profundo',destino:'silueta' },
+        { id:'dedos',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hand%20with%20fingers%20splayed/Default/3D/hand_with_fingers_splayed_3d_default.png', color:'#E3F2FD', nombre:'dedos', articulo:'los', descripcion:'para tocar cosas', destino:'silueta' },
+        { id:'pelo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Person%20getting%20haircut/Default/3D/person_getting_haircut_3d_default.png', color:'#E3F2FD', nombre:'pelo', articulo:'el', descripcion:'para peinarnos', destino:'silueta' }
     ],
 
-    // Emociones: el diccionario ahora vive en emociones.js (EMOCIONES)
-    // Aquí solo guardamos los IDs para que niveles.js los use
     _emocionIds: ['feliz','triste','enojado','asustado','sorprendido','orgulloso','cansado','amor','curioso','emocionado'],
-
     colores_formas: _crearFormas(),
 
     vehiculos: [
-        { id:'auto',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Automobile/3D/automobile_3d.png',        color:'#FFCDD2', nombre:'auto',            articulo:'el', destino:'calle' },
-        { id:'bomberos',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire%20engine/3D/fire_engine_3d.png',    color:'#FFCDD2', nombre:'camión bomberos', articulo:'el', destino:'calle' },
-        { id:'policia', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Police%20car/3D/police_car_3d.png',      color:'#BBDEFB', nombre:'auto de policía', articulo:'el', destino:'calle' },
-        { id:'avion',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane/3D/airplane_3d.png',            color:'#E1F5FE', nombre:'avión',           articulo:'el', destino:'cielo' },
-        { id:'cohete',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rocket/3D/rocket_3d.png',               color:'#D1C4E9', nombre:'cohete',          articulo:'el', destino:'cielo' },
-        { id:'barco',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ship/3D/ship_3d.png',                   color:'#B3E5FC', nombre:'barco',           articulo:'el', destino:'mar' },
-        { id:'tren',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Locomotive/3D/locomotive_3d.png',        color:'#C8E6C9', nombre:'tren',            articulo:'el', destino:'calle' },
-        { id:'tractor', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tractor/3D/tractor_3d.png',             color:'#DCEDC8', nombre:'tractor',         articulo:'el', destino:'calle' },
-        { id:'helicop', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Helicopter/3D/helicopter_3d.png',        color:'#E1F5FE', nombre:'helicóptero',     articulo:'el', destino:'cielo' },
-        { id:'bici',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bicycle/3D/bicycle_3d.png',              color:'#C8E6C9', nombre:'bicicleta',       articulo:'la', destino:'calle' },
+        // ── CALLE Y TRANSPORTE ──
+        { id:'auto',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Automobile/3D/automobile_3d.png',        color:'#FFCDD2', nombre:'auto',             articulo:'el', destino:'calle' },
+        { id:'suv',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Sport%20utility%20vehicle/3D/sport_utility_vehicle_3d.png',color:'#E3F2FD', nombre:'camioneta',      articulo:'la', destino:'calle' },
+        { id:'bus',      img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bus/3D/bus_3d.png',                      color:'#FFF9C4', nombre:'autobús',          articulo:'el', destino:'calle' },
+        { id:'taxi',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Taxi/3D/taxi_3d.png',                    color:'#FFF9C4', nombre:'taxi',             articulo:'el', destino:'calle' },
+        { id:'tren',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Locomotive/3D/locomotive_3d.png',        color:'#C8E6C9', nombre:'tren',             articulo:'el', destino:'calle' },
+        { id:'bullet',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bullet%20train/3D/bullet_train_3d.png',  color:'#E0F7FA', nombre:'tren bala',        articulo:'el', destino:'calle' },
+        { id:'moto',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Motorcycle/3D/motorcycle_3d.png',        color:'#E1BEE7', nombre:'moto',             articulo:'la', destino:'calle' },
+        { id:'bici',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bicycle/3D/bicycle_3d.png',              color:'#C8E6C9', nombre:'bicicleta',        articulo:'la', destino:'calle' },
+        { id:'scooter',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Kick%20scooter/3D/kick_scooter_3d.png',  color:'#FFE0B2', nombre:'monopatín',        articulo:'el', destino:'calle' },
+        { id:'wheelchair',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Manual%20wheelchair/3D/manual_wheelchair_3d.png',color:'#E3F2FD',nombre:'silla de ruedas',articulo:'la', destino:'calle' },
+        
+        // ── EMERGENCIAS ──
+        { id:'policia',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Police%20car/3D/police_car_3d.png',      color:'#BBDEFB', nombre:'coche de policía', articulo:'el', destino:'calle' },
+        { id:'bomberos', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Fire%20engine/3D/fire_engine_3d.png',    color:'#FFCDD2', nombre:'camión de bomberos',articulo:'el', destino:'calle' },
+        { id:'ambu',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ambulance/3D/ambulance_3d.png',          color:'#FFCDD2', nombre:'ambulancia',       articulo:'la', destino:'calle' },
+        
+        // ── CONSTRUCCIÓN Y TRABAJO ──
+        { id:'tractor',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tractor/3D/tractor_3d.png',             color:'#DCEDC8', nombre:'tractor',          articulo:'el', destino:'calle' },
+        { id:'camion',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Articulated%20lorry/3D/articulated_lorry_3d.png',color:'#E0E0E0', nombre:'camión grande', articulo:'el', destino:'calle' },
+        { id:'reparto',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Delivery%20truck/3D/delivery_truck_3d.png',color:'#E1F5FE', nombre:'camión de reparto', articulo:'el', destino:'calle' },
+        
+        // ── AÉREOS Y ESPACIO ──
+        { id:'avion',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Airplane/3D/airplane_3d.png',            color:'#E1F5FE', nombre:'avión',            articulo:'el', destino:'cielo' },
+        { id:'avioncito',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Small%20airplane/3D/small_airplane_3d.png',color:'#B3E5FC', nombre:'avioneta',     articulo:'la', destino:'cielo' },
+        { id:'helicop',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Helicopter/3D/helicopter_3d.png',        color:'#E1F5FE', nombre:'helicóptero',      articulo:'el', destino:'cielo' },
+        { id:'cohete',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Rocket/3D/rocket_3d.png',               color:'#D1C4E9', nombre:'cohete',           articulo:'el', destino:'cielo' },
+        { id:'globo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Parachute/3D/parachute_3d.png',         color:'#FFCC80', nombre:'paracaídas',       articulo:'el', destino:'cielo' },
+        { id:'satellite',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Satellite/3D/satellite_3d.png',         color:'#CFD8DC', nombre:'satélite',         articulo:'el', destino:'cielo' },
+        { id:'saucer',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flying%20saucer/3D/flying_saucer_3d.png',color:'#C8E6C9', nombre:'ovni',             articulo:'el', destino:'cielo' },
+        
+        // ── ACUÁTICOS ──
+        { id:'barco',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ship/3D/ship_3d.png',                   color:'#B3E5FC', nombre:'barco',            articulo:'el', destino:'mar' },
+        { id:'lancha',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Speedboat/3D/speedboat_3d.png',         color:'#81D4FA', nombre:'lancha',           articulo:'la', destino:'mar' },
+        { id:'canoa',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Canoe/3D/canoe_3d.png',                 color:'#D7CCC8', nombre:'canoa',            articulo:'la', destino:'mar' },
+        { id:'crucero',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Passenger%20ship/3D/passenger_ship_3d.png',color:'#E3F2FD', nombre:'crucero',       articulo:'el', destino:'mar' },
+        { id:'ferry',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ferry/3D/ferry_3d.png',                 color:'#E1F5FE', nombre:'ferri',            articulo:'el', destino:'mar' },
     ],
 
     abecedario: [
@@ -161,7 +257,7 @@ const diccionarios = {
           items:[{emoji:'🧴',nombre:'champú',correcto:true},{emoji:'💧',nombre:'agua',correcto:true},{emoji:'🪮',nombre:'peine',correcto:true},{emoji:'🏈',nombre:'pelota de rugby',correcto:false},{emoji:'🎮',nombre:'videojuego',correcto:false}]},
     ],
 
-    // Frutas y Verduras — 4 tipos de pregunta
+    // Frutas y Verduras masivas
     frutas: [
         // Categorización: ¿cuál es la fruta?
         { id:'cat_frutas', tipo:'categorizar', pregunta:'¿Cuál es una FRUTA?', audio:'¿Cuál de estos es una fruta?',
@@ -169,11 +265,37 @@ const diccionarios = {
             {emoji:'🍎',nombre:'manzana',color:'#FFEBEE',categoria:'fruta',respuesta:'una fruta'},
             {emoji:'🍌',nombre:'plátano',color:'#FFF9C4',categoria:'fruta',respuesta:'una fruta'},
             {emoji:'🍓',nombre:'frutilla',color:'#FFEBEE',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍉',nombre:'sandía',color:'#E3F2FD',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍇',nombre:'uvas',color:'#F3E5F5',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍒',nombre:'cereza',color:'#FFCDD2',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍍',nombre:'piña',color:'#FFF9C4',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🥭',nombre:'mango',color:'#FFE0B2',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍋',nombre:'limón',color:'#FFF9C4',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍊',nombre:'naranja',color:'#FFE0B2',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🥝',nombre:'kiwi',color:'#E8F5E9',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍑',nombre:'durazno',color:'#FFE0B2',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍐',nombre:'pera',color:'#F1F8E9',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🍈',nombre:'melón',color:'#E8F5E9',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🥥',nombre:'coco',color:'#EFEBE9',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🥑',nombre:'palta',color:'#E8F5E9',categoria:'fruta',respuesta:'una fruta'},
+            {emoji:'🫐',nombre:'arándanos',color:'#E3F2FD',categoria:'fruta',respuesta:'una fruta'},
           ],
           incorrectos:[
             {emoji:'🥕',nombre:'zanahoria',color:'#FFF3E0',categoria:'verdura'},
             {emoji:'🥦',nombre:'brócoli',color:'#E8F5E9',categoria:'verdura'},
             {emoji:'🧅',nombre:'cebolla',color:'#FFF9C4',categoria:'verdura'},
+            {emoji:'🌽',nombre:'maíz',color:'#FFF9C4',categoria:'verdura'},
+            {emoji:'🍅',nombre:'tomate',color:'#FFEBEE',categoria:'verdura'},
+            {emoji:'🥔',nombre:'papa',color:'#EFEBE9',categoria:'verdura'},
+            {emoji:'🥬',nombre:'lechuga',color:'#E8F5E9',categoria:'verdura'},
+            {emoji:'🧄',nombre:'ajo',color:'#FAFAFA',categoria:'verdura'},
+            {emoji:'🍄',nombre:'champiñón',color:'#FFEBEE',categoria:'verdura'},
+            {emoji:'🍆',nombre:'berenjena',color:'#F3E5F5',categoria:'verdura'},
+            {emoji:'🥒',nombre:'pepino',color:'#E8F5E9',categoria:'verdura'},
+            {emoji:'🫑',nombre:'pimiento',color:'#E8F5E9',categoria:'verdura'},
+            {emoji:'🌶️',nombre:'ají',color:'#FFEBEE',categoria:'verdura'},
+            {emoji:'🥜',nombre:'maní',color:'#EFEBE9',categoria:'verdura'},
+            {emoji:'🌰',nombre:'castaña',color:'#EFEBE9',categoria:'verdura'},
           ]
         },
         { id:'cat_verduras', tipo:'categorizar', pregunta:'¿Cuál es una VERDURA?', audio:'¿Cuál de estos es una verdura?',
@@ -181,47 +303,65 @@ const diccionarios = {
             {emoji:'🥕',nombre:'zanahoria',color:'#FFF3E0',categoria:'verdura',respuesta:'una verdura'},
             {emoji:'🥦',nombre:'brócoli',color:'#E8F5E9',categoria:'verdura',respuesta:'una verdura'},
             {emoji:'🍅',nombre:'tomate',color:'#FFEBEE',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🌽',nombre:'maíz',color:'#FFF9C4',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🥔',nombre:'papa',color:'#EFEBE9',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🥬',nombre:'lechuga',color:'#E8F5E9',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🧅',nombre:'cebolla',color:'#FFF9C4',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🧄',nombre:'ajo',color:'#FAFAFA',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🍄',nombre:'champiñón',color:'#FFEBEE',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🍆',nombre:'berenjena',color:'#F3E5F5',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🥒',nombre:'pepino',color:'#E8F5E9',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🫑',nombre:'pimiento',color:'#E8F5E9',categoria:'verdura',respuesta:'una verdura'},
+            {emoji:'🌶️',nombre:'ají',color:'#FFEBEE',categoria:'verdura',respuesta:'una verdura'},
           ],
           incorrectos:[
             {emoji:'🍎',nombre:'manzana',color:'#FFEBEE',categoria:'fruta'},
             {emoji:'🍌',nombre:'plátano',color:'#FFF9C4',categoria:'fruta'},
             {emoji:'🍊',nombre:'naranja',color:'#FFF3E0',categoria:'fruta'},
+            {emoji:'🍓',nombre:'frutilla',color:'#FFEBEE',categoria:'fruta'},
+            {emoji:'🍉',nombre:'sandía',color:'#E3F2FD',categoria:'fruta'},
+            {emoji:'🍇',nombre:'uvas',color:'#F3E5F5',categoria:'fruta'},
+            {emoji:'🍍',nombre:'piña',color:'#FFF9C4',categoria:'fruta'},
+            {emoji:'🥭',nombre:'mango',color:'#FFE0B2',categoria:'fruta'},
+            {emoji:'🍋',nombre:'limón',color:'#FFF9C4',categoria:'fruta'},
+            {emoji:'🥝',nombre:'kiwi',color:'#E8F5E9',categoria:'fruta'},
           ]
         },
-        // Identificación: ¿cuál es el X?
+        
+        // Identificación rápida de frutas
         { id:'id_manzana', tipo:'identificar', pregunta:'¿Cuál es la manzana?', audio:'¿Cuál es la manzana?', respuesta:'una manzana',
-          opciones:[
-            {emoji:'🍎',nombre:'manzana',esCorrecto:true, color:'#FFEBEE'},
-            {emoji:'🍊',nombre:'naranja', esCorrecto:false,color:'#FFF3E0'},
-            {emoji:'🍋',nombre:'limón',   esCorrecto:false,color:'#FFF9C4'},
-          ]
+          opciones:[{emoji:'🍎',nombre:'manzana',esCorrecto:true, color:'#FFEBEE'},{emoji:'🍊',nombre:'naranja', esCorrecto:false,color:'#FFF3E0'},{emoji:'🍋',nombre:'limón',   esCorrecto:false,color:'#FFF9C4'},]
         },
         { id:'id_zanahoria', tipo:'identificar', pregunta:'¿Cuál es la zanahoria?', audio:'¿Cuál es la zanahoria?', respuesta:'una zanahoria',
-          opciones:[
-            {emoji:'🥕',nombre:'zanahoria',esCorrecto:true, color:'#FFF3E0'},
-            {emoji:'🥦',nombre:'brócoli',  esCorrecto:false,color:'#E8F5E9'},
-            {emoji:'🍆',nombre:'berenjena',esCorrecto:false,color:'#F3E5F5'},
-          ]
+          opciones:[{emoji:'🥕',nombre:'zanahoria',esCorrecto:true, color:'#FFF3E0'},{emoji:'🥦',nombre:'brócoli',  esCorrecto:false,color:'#E8F5E9'},{emoji:'🍆',nombre:'berenjena',esCorrecto:false,color:'#F3E5F5'},]
         },
         { id:'id_platano', tipo:'identificar', pregunta:'¿Cuál es el plátano?', audio:'¿Cuál es el plátano?', respuesta:'un plátano',
-          opciones:[
-            {emoji:'🍌',nombre:'plátano',esCorrecto:true, color:'#FFF9C4'},
-            {emoji:'🍇',nombre:'uvas',   esCorrecto:false,color:'#F3E5F5'},
-            {emoji:'🍓',nombre:'frutilla',esCorrecto:false,color:'#FFEBEE'},
-          ]
+          opciones:[{emoji:'🍌',nombre:'plátano',esCorrecto:true, color:'#FFF9C4'},{emoji:'🍇',nombre:'uvas',   esCorrecto:false,color:'#F3E5F5'},{emoji:'🍓',nombre:'frutilla',esCorrecto:false,color:'#FFEBEE'},]
         },
         { id:'id_frutilla', tipo:'identificar', pregunta:'¿Cuál es la frutilla?', audio:'¿Cuál es la frutilla?', respuesta:'una frutilla',
-          opciones:[
-            {emoji:'🍓',nombre:'frutilla',esCorrecto:true, color:'#FFEBEE'},
-            {emoji:'🍒',nombre:'cereza',  esCorrecto:false,color:'#FFEBEE'},
-            {emoji:'🍑',nombre:'durazno', esCorrecto:false,color:'#FFF3E0'},
-          ]
+          opciones:[{emoji:'🍓',nombre:'frutilla',esCorrecto:true, color:'#FFEBEE'},{emoji:'🍒',nombre:'cereza',  esCorrecto:false,color:'#FFEBEE'},{emoji:'🍑',nombre:'durazno', esCorrecto:false,color:'#FFF3E0'},]
+        },
+        { id:'id_sandia', tipo:'identificar', pregunta:'¿Cuál es la sandía?', audio:'¿Cuál es la sandía?', respuesta:'una sandía',
+          opciones:[{emoji:'🍉',nombre:'sandía',esCorrecto:true, color:'#E3F2FD'},{emoji:'🍅',nombre:'tomate',  esCorrecto:false,color:'#FFEBEE'},{emoji:'🍈',nombre:'melón', esCorrecto:false,color:'#E8F5E9'},]
+        },
+        { id:'id_uva', tipo:'identificar', pregunta:'¿Cuáles son las uvas?', audio:'¿Cuáles son las uvas?', respuesta:'unas uvas',
+          opciones:[{emoji:'🍇',nombre:'uvas',esCorrecto:true, color:'#F3E5F5'},{emoji:'🫐',nombre:'arándanos',  esCorrecto:false,color:'#E3F2FD'},{emoji:'🍒',nombre:'cereza', esCorrecto:false,color:'#FFCDD2'},]
+        },
+        { id:'id_brocoli', tipo:'identificar', pregunta:'¿Cuál es el brócoli?', audio:'¿Cuál es el brócoli?', respuesta:'un brócoli',
+          opciones:[{emoji:'🥦',nombre:'brócoli',esCorrecto:true, color:'#E8F5E9'},{emoji:'🥬',nombre:'lechuga',  esCorrecto:false,color:'#E8F5E9'},{emoji:'🥒',nombre:'pepino', esCorrecto:false,color:'#E8F5E9'},]
+        },
+        { id:'id_pina', tipo:'identificar', pregunta:'¿Cuál es la piña?', audio:'¿Cuál es la piña?', respuesta:'una piña',
+          opciones:[{emoji:'🍍',nombre:'piña',esCorrecto:true, color:'#FFF9C4'},{emoji:'🍌',nombre:'plátano',  esCorrecto:false,color:'#FFF9C4'},{emoji:'🌽',nombre:'maíz', esCorrecto:false,color:'#FFF9C4'},]
+        },
+        { id:'id_lechuga', tipo:'identificar', pregunta:'¿Cuál es la lechuga?', audio:'¿Cuál es la lechuga?', respuesta:'una lechuga',
+          opciones:[{emoji:'🥬',nombre:'lechuga',esCorrecto:true, color:'#E8F5E9'},{emoji:'🥦',nombre:'brócoli',  esCorrecto:false,color:'#E8F5E9'},{emoji:'🥒',nombre:'pepino', esCorrecto:false,color:'#E8F5E9'},]
         },
     ],
 
-    // Opuestos — el diccionario vive en opuestos.js, aquí solo IDs de referencia
-    _opuestosIds: ['grande_pequeno','arriba_abajo','rapido_lento','caliente_frio','dia_noche','mucho_poco','abierto_cerrado','mojado_seco'],
+    _opuestosIds: ['grande_pequeno','arriba_abajo','rapido_lento','caliente_frio','dia_noche','mucho_poco','abierto_cerrado','mojado_seco','lleno_vacio','pesado_liviano','limpio_sucio','adentro_afuera','fuerte_despacio','feliz_triste','largo_corto','encendido_apagado','duro_blando','joven_viejo','dulce_salado','dormido_despierto'],
 };
+
+
 
 // ─── CONFIGURACIÓN POR EDAD ────────────────────────────────────────────────────
 const _cfgEdad = {
