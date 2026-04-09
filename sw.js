@@ -23,6 +23,8 @@ const ASSETS = [
     './js/modules/emociones.js',
     './js/modules/higiene.js',
     './js/modules/abecedario.js',
+    './js/modules/opuestos.js',
+    './js/modules/frutas.js',
 ];
 
 self.addEventListener('install', e => {

@@ -154,23 +154,34 @@ const diccionarios = {
     ],
 
     cuerpo: [
-        { id:'ojo',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eye/3D/eye_3d.png',                                           color:'#E3F2FD', nombre:'ojo',      articulo:'el', descripcion:'para ver los colores', destino:'silueta' },
-        { id:'oreja',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ear/Default/3D/ear_3d_default.png',                           color:'#E3F2FD', nombre:'oreja',    articulo:'la', descripcion:'para escuchar música', destino:'silueta' },
-        { id:'nariz',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Nose/Default/3D/nose_3d_default.png',                         color:'#E3F2FD', nombre:'nariz',    articulo:'la', descripcion:'para oler las flores', destino:'silueta' },
-        { id:'mano',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Waving%20hand/Default/3D/waving_hand_3d_default.png',         color:'#E3F2FD', nombre:'mano',     articulo:'la', descripcion:'para aplaudir',        destino:'silueta' },
-        { id:'pie',     img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Foot/Default/3D/foot_3d_default.png',                         color:'#E3F2FD', nombre:'pie',      articulo:'el', descripcion:'para correr y saltar', destino:'silueta' },
-        { id:'boca',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouth/3D/mouth_3d.png',                                       color:'#E3F2FD', nombre:'boca',     articulo:'la', descripcion:'para hablar y cantar', destino:'silueta' },
-        { id:'lengua',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tongue/3D/tongue_3d.png',                                     color:'#E3F2FD', nombre:'lengua',   articulo:'la', descripcion:'para sentir sabores',  destino:'silueta' },
-        { id:'diente',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tooth/3D/tooth_3d.png',                                       color:'#E3F2FD', nombre:'diente',   articulo:'el', descripcion:'para masticar',        destino:'silueta' },
-        { id:'cabeza',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Child/Default/3D/child_3d_default.png',                       color:'#E3F2FD', nombre:'cabeza',   articulo:'la', descripcion:'para pensar',          destino:'silueta' },
-        { id:'pierna',  img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Leg/Default/3D/leg_3d_default.png',                           color:'#E3F2FD', nombre:'pierna',   articulo:'la', descripcion:'para caminar',         destino:'silueta' },
-        { id:'brazo',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flexed%20biceps/Default/3D/flexed_biceps_3d_default.png',     color:'#E3F2FD', nombre:'brazo',    articulo:'el', descripcion:'para dar abrazos',     destino:'silueta' },
-        { id:'espalda', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bone/3D/bone_3d.png',                                         color:'#E3F2FD', nombre:'hueso',    articulo:'el', descripcion:'para estar derechitos',destino:'silueta' },
-        { id:'corazon', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Anatomical%20heart/3D/anatomical_heart_3d.png',               color:'#FFCDD2', nombre:'corazón',  articulo:'el', descripcion:'para sentir mucho amor', destino:'silueta' },
-        { id:'cerebro', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Brain/3D/brain_3d.png',                                       color:'#F3E5F5', nombre:'cerebro',  articulo:'el', descripcion:'para aprender y soñar', destino:'silueta' },
-        { id:'pulmones',img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lungs/3D/lungs_3d.png',                                       color:'#E1F5FE', nombre:'pulmones', articulo:'los',descripcion:'para respirar profundo',destino:'silueta' },
-        { id:'dedos',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hand%20with%20fingers%20splayed/Default/3D/hand_with_fingers_splayed_3d_default.png', color:'#E3F2FD', nombre:'dedos', articulo:'los', descripcion:'para tocar cosas', destino:'silueta' },
-        { id:'pelo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Person%20getting%20haircut/Default/3D/person_getting_haircut_3d_default.png', color:'#E3F2FD', nombre:'pelo', articulo:'el', descripcion:'para peinarnos', destino:'silueta' }
+        // 'tipo' agrupa partes visualmente similares.
+        // El generador NUNCA usa ítems del mismo tipo como distractores entre sí.
+        // Grupos:
+        //   mano_brazo  → mano, dedos, brazo  (todas muestran mano/brazo, color piel)
+        //   pierna_pie  → pierna, pie          (ambas muestran extremidad inferior)
+        //   cara_sup    → ojo
+        //   cara_lat    → oreja
+        //   cara_cen    → nariz
+        //   cara_inf    → boca, lengua, diente (todas son partes de la boca)
+        //   interno     → corazón, cerebro, pulmones, hueso (órganos internos)
+        //   externo     → cabeza/cuerpo completo, pelo
+        { id:'ojo',     tipo:'cara_sup',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eye/3D/eye_3d.png',                                           color:'#E3F2FD', nombre:'ojo',      articulo:'el',  descripcion:'para ver los colores',     destino:'silueta' },
+        { id:'oreja',   tipo:'cara_lat',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ear/Default/3D/ear_3d_default.png',                           color:'#E3F2FD', nombre:'oreja',    articulo:'la',  descripcion:'para escuchar música',     destino:'silueta' },
+        { id:'nariz',   tipo:'cara_cen',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Nose/Default/3D/nose_3d_default.png',                         color:'#E3F2FD', nombre:'nariz',    articulo:'la',  descripcion:'para oler las flores',     destino:'silueta' },
+        { id:'boca',    tipo:'cara_inf',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouth/3D/mouth_3d.png',                                       color:'#E3F2FD', nombre:'boca',     articulo:'la',  descripcion:'para hablar y cantar',     destino:'silueta' },
+        { id:'lengua',  tipo:'cara_inf',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tongue/3D/tongue_3d.png',                                     color:'#E3F2FD', nombre:'lengua',   articulo:'la',  descripcion:'para sentir sabores',      destino:'silueta' },
+        { id:'diente',  tipo:'cara_inf',   img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Tooth/3D/tooth_3d.png',                                       color:'#E3F2FD', nombre:'diente',   articulo:'el',  descripcion:'para masticar',            destino:'silueta' },
+        { id:'mano',    tipo:'mano_brazo', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Waving%20hand/Default/3D/waving_hand_3d_default.png',         color:'#E3F2FD', nombre:'mano',     articulo:'la',  descripcion:'para aplaudir',            destino:'silueta' },
+        { id:'dedos',   tipo:'mano_brazo', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Hand%20with%20fingers%20splayed/Default/3D/hand_with_fingers_splayed_3d_default.png', color:'#E3F2FD', nombre:'dedos', articulo:'los', descripcion:'para tocar cosas', destino:'silueta' },
+        { id:'brazo',   tipo:'mano_brazo', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flexed%20biceps/Default/3D/flexed_biceps_3d_default.png',     color:'#E3F2FD', nombre:'brazo',    articulo:'el',  descripcion:'para dar abrazos',         destino:'silueta' },
+        { id:'pie',     tipo:'pierna_pie', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Foot/Default/3D/foot_3d_default.png',                         color:'#E3F2FD', nombre:'pie',      articulo:'el',  descripcion:'para correr y saltar',     destino:'silueta' },
+        { id:'pierna',  tipo:'pierna_pie', img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Leg/Default/3D/leg_3d_default.png',                           color:'#E3F2FD', nombre:'pierna',   articulo:'la',  descripcion:'para caminar',             destino:'silueta' },
+        { id:'corazon', tipo:'interno',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Anatomical%20heart/3D/anatomical_heart_3d.png',               color:'#FFCDD2', nombre:'corazón',  articulo:'el',  descripcion:'para sentir mucho amor',   destino:'silueta' },
+        { id:'cerebro', tipo:'interno',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Brain/3D/brain_3d.png',                                       color:'#F3E5F5', nombre:'cerebro',  articulo:'el',  descripcion:'para aprender y soñar',    destino:'silueta' },
+        { id:'pulmones',tipo:'interno',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Lungs/3D/lungs_3d.png',                                       color:'#E1F5FE', nombre:'pulmones', articulo:'los', descripcion:'para respirar profundo',   destino:'silueta' },
+        { id:'espalda', tipo:'interno',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Bone/3D/bone_3d.png',                                         color:'#E3F2FD', nombre:'hueso',    articulo:'el',  descripcion:'para estar derechitos',    destino:'silueta' },
+        { id:'cabeza',  tipo:'externo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Child/Default/3D/child_3d_default.png',                       color:'#E3F2FD', nombre:'cabeza',   articulo:'la',  descripcion:'para pensar',              destino:'silueta' },
+        { id:'pelo',    tipo:'externo',    img:'https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Person%20getting%20haircut/Default/3D/person_getting_haircut_3d_default.png', color:'#E3F2FD', nombre:'pelo', articulo:'el', descripcion:'para peinarnos', destino:'silueta' },
     ],
 
     _emocionIds: ['feliz','triste','enojado','asustado','sorprendido','orgulloso','cansado','amor','curioso','emocionado'],
@@ -433,7 +444,9 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
         for (let i = 0; i < cantidadTotal; i++) {
             const correctoId = ids[i % ids.length];
             // Alternamos modos: pares→cara_a_nombre, impares→situacion_a_cara
-            const modo = (i % 2 === 0) ? 'situacion_a_cara' : 'cara_a_nombre';
+            // 3 modos rotativos: situacion→cara / escucha y encuentra / laboratorio (armar cara)
+            const modos = ['situacion_a_cara', 'cara_a_nombre', 'modo_laboratorio'];
+            const modo  = modos[i % 3];
             const distractores = todosOp
                 .filter(d => d.id !== correctoId)
                 .sort(()=>0.5-Math.random()).slice(0, cfg.distractores);
@@ -587,6 +600,7 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
             if (distractores.length === 0) continue; // safety
 
             let tipoMotor = ordenMotores[i % ordenMotores.length];
+            
             // arrastre no tiene sentido para colores_formas (sin destino), usar selección
             if (tipoMotor === 'arrastre') tipoMotor = 'seleccion';
 
@@ -609,9 +623,11 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
 
     const poolOriginal  = [...diccionarios[categoria]];
     let   poolDisponible = [...poolOriginal];
-    const partesCara      = ['ojo','oreja','nariz','boca'];
-    const partesAbstractas = ['diente','lengua','cabeza'];
-    const ordenMotores    = cfg.motores;
+    
+    // RECUPERAMOS LAS VARIABLES QUE FALTABAN
+    const partesCara     = ['ojo','oreja','nariz','boca'];
+    const partesEnAvatar = ['ojo','oreja','nariz','boca','mano','pie','cabeza','pelo']; // Añadimos 'pelo'
+    const ordenMotores   = cfg.motores;
 
     for (let i = 0; i < cantidadTotal; i++) {
         if (poolDisponible.length === 0) poolDisponible = [...poolOriginal];
@@ -623,8 +639,12 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
             .sort(()=>0.5-Math.random()).slice(0, cfg.distractores);
 
         let tipoMotor = ordenMotores[i % ordenMotores.length];
-        if (tipoMotor === 'arrastre' && categoria === 'cuerpo') {
-            tipoMotor = partesAbstractas.includes(correcto.id) ? 'seleccion' : 'identificar_avatar';
+
+        // FIX: Forzamos el motor a 'seleccion' si la parte NO está en el SVG del niño
+        if (categoria === 'cuerpo') {
+             if (tipoMotor === 'arrastre' || tipoMotor === 'identificar_avatar') {
+                 tipoMotor = partesEnAvatar.includes(correcto.id) ? 'identificar_avatar' : 'seleccion';
+             }
         }
 
         let nivel = {nivel:i+1, tipo_motor:tipoMotor};

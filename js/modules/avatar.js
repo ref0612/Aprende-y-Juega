@@ -59,11 +59,11 @@ export default class AvatarGame extends GameEngine {
           </g>
 
           <!-- ── PELO (frente, cubre frente y orejas arriba) -->
-          <ellipse cx="140" cy="80"  rx="105" ry="78"  fill="#E8A020"/>
-          <!-- flequillo curvo -->
-          <path d="M 38 115 Q 55 55 140 50 Q 225 55 242 115" fill="#E8A020"/>
-          <!-- brillo pelo -->
-          <ellipse cx="110" cy="65" rx="28" ry="11" fill="rgba(255,255,255,0.18)" transform="rotate(-18,110,65)"/>
+          <g class="parte" data-id="pelo">
+            <ellipse cx="140" cy="80"  rx="105" ry="78"  fill="#E8A020"/>
+            <path d="M 38 115 Q 55 55 140 50 Q 225 55 242 115" fill="#E8A020"/>
+            <ellipse cx="110" cy="65" rx="28" ry="11" fill="rgba(255,255,255,0.18)" transform="rotate(-18,110,65)"/>
+          </g>
 
           <!-- ── CEJAS -->
           <path d="M 78 140 Q 98 129 118 140" fill="none" stroke="#8B5A18" stroke-width="3.5" stroke-linecap="round"/>
@@ -133,28 +133,27 @@ export default class AvatarGame extends GameEngine {
         <svg viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg" width="260" style="overflow:visible">
 
           <!-- ── CABEZA — data-id="cabeza" -->
-          <g class="parte" data-id="cabeza">
-            <!-- pelo -->
+          <g class="parte" data-id="pelo">
             <ellipse cx="140" cy="50"  rx="56" ry="50" fill="#E8A020"/>
-            <!-- cara -->
+          </g>
+
+          <g class="parte" data-id="cabeza">
             <ellipse cx="140" cy="64"  rx="50" ry="56" fill="#FDDAB0"/>
-            <!-- flequillo -->
-            <ellipse cx="140" cy="22"  rx="56" ry="38" fill="#E8A020"/>
-            <!-- ojos simples -->
             <ellipse cx="122" cy="62" rx="10" ry="10" fill="white"/>
             <circle  cx="122" cy="62" r="6"  fill="#1a1a2e"/>
             <circle  cx="126" cy="58" r="2.5"fill="white"/>
             <ellipse cx="158" cy="62" rx="10" ry="10" fill="white"/>
             <circle  cx="158" cy="62" r="6"  fill="#1a1a2e"/>
             <circle  cx="162" cy="58" r="2.5"fill="white"/>
-            <!-- nariz -->
             <path d="M 133 76 Q 140 84 147 76" fill="none" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
-            <!-- sonrisa -->
             <path d="M 124 92 Q 140 108 156 92" fill="none" stroke="#C04A2A" stroke-width="3.5" stroke-linecap="round"/>
             <path d="M 126 94 Q 140 106 154 94" fill="white"/>
-            <!-- mejillas -->
             <ellipse cx="108" cy="80" rx="14" ry="9" fill="rgba(255,110,110,0.22)"/>
             <ellipse cx="172" cy="80" rx="14" ry="9" fill="rgba(255,110,110,0.22)"/>
+          </g>
+
+          <g class="parte" data-id="pelo">
+            <ellipse cx="140" cy="22"  rx="56" ry="38" fill="#E8A020"/>
           </g>
 
           <!-- ── CUELLO -->
