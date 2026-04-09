@@ -1,201 +1,460 @@
-/* css/main-style.css */
+/* css/main-style.css v3 */
+* { box-sizing: border-box; }
+
 body {
     background-color: var(--bg-app);
-    background-image: radial-gradient(circle at 50% 50%, #ffffff 20%, transparent 20%), 
-                      radial-gradient(circle at 100% 100%, #ffffff 20%, transparent 20%);
-    background-size: 100px 100px;
-    background-position: 0 0, 50px 50px;
+    background-image:
+        radial-gradient(circle at 15% 15%, rgba(255,255,255,0.55) 28%, transparent 28%),
+        radial-gradient(circle at 85% 85%, rgba(255,255,255,0.45) 22%, transparent 22%);
+    background-size: 90px 90px;
     font-family: var(--font-kids);
     margin: 0;
     color: var(--text-dark);
     overflow-x: hidden;
-    user-select: none; /* Evita que los niños seleccionen texto por error */
-    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul en celulares */
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+    min-height: 100vh;
 }
 
-.main-header {
-    text-align: center;
-    padding: 1.5rem;
-    font-size: 1.8rem;
-    color: var(--error-color);
-    text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
-    animation: pop-in 0.8s ease-out;
-}
-
-/* Contenedor Grid Principal */
-.game-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-    gap: 30px;
-    padding: 20px 40px;
-    max-width: 1000px;
-    margin: 0 auto;
+/* ═══════════════════════════════════
+   PANTALLA DE BIENVENIDA
+═══════════════════════════════════ */
+#bienvenida {
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(160deg, #E0F7FA 0%, #B2EBF2 40%, #E1BEE7 100%);
+    display: flex;
+    align-items: center;
     justify-content: center;
+    z-index: 999;
+    animation: fade-in 0.5s ease-out;
 }
+@keyframes fade-in { from { opacity: 0; } to { opacity: 1; } }
 
-/* 🌟 LA TARJETA 3D INTELIGENTE 🌟 */
-.game-card {
-    border-radius: 35px;
+.bienvenida-box {
     text-align: center;
     padding: 30px 20px;
+    max-width: 480px;
+    width: 100%;
+}
+.bienvenida-logo   { font-size: 5rem; animation: respirar 3s infinite ease-in-out; }
+.bienvenida-titulo { font-size: 2.4rem; color: #FF5252; margin: 10px 0 4px; text-shadow: 2px 2px 0 #fff, 4px 4px 0 rgba(0,0,0,0.1); }
+.bienvenida-sub    { font-size: 1.4rem; color: #555; margin: 0 0 24px; font-weight: 700; }
+
+.bienvenida-edades {
+    display: flex;
+    gap: 14px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+.btn-bienvenida-edad {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    background: white;
+    border: 4px solid rgba(255,255,255,0.6);
+    border-radius: 24px;
+    padding: 20px 16px;
     cursor: pointer;
-    border: 5px solid rgba(255, 255, 255, 0.6);
-    /* Esta sombra funciona en CUALQUIER color de fondo */
-    box-shadow: inset 0 -10px 0 rgba(0,0,0,0.15), 0 15px 15px rgba(0,0,0,0.1);
-    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    box-shadow: inset 0 -8px 0 rgba(0,0,0,0.12), 0 10px 14px rgba(0,0,0,0.1);
+    transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
+    min-width: 120px;
+    font-family: var(--font-kids);
+}
+.btn-bienvenida-edad:active { transform: translateY(6px); box-shadow: inset 0 -2px 0 rgba(0,0,0,0.12), 0 3px 5px rgba(0,0,0,0.1); }
+.be-emoji  { font-size: 3rem; }
+.be-label  { font-size: 1.2rem; font-weight: 900; color: var(--text-dark); }
+.be-rango  { font-size: 0.85rem; color: #888; font-weight: 700; }
+
+/* ═══════════════════════════════════
+   HEADER
+═══════════════════════════════════ */
+.main-header {
+    padding: 1rem 1.2rem 0.6rem;
+    animation: pop-in 0.7s ease-out;
+}
+.header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1000px;
+    margin: 0 auto;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+.header-titulo {
+    font-size: 1.7rem;
+    color: var(--error-color);
+    text-shadow: 2px 2px 0 #fff, 4px 4px 0 rgba(0,0,0,0.1);
+    margin: 0;
+}
+.header-meta { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.total-estrellas { font-size: 1.1rem; font-weight: 900; color: #FF8F00; }
+
+.btn-edad-pill {
+    background: white;
+    border: 3px solid rgba(255,255,255,0.7);
+    border-radius: 20px;
+    padding: 6px 14px;
+    font-size: 0.95rem;
+    font-weight: 700;
+    font-family: var(--font-kids);
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: all 0.2s;
+    color: var(--text-dark);
+}
+.btn-edad-pill:hover { transform: scale(1.04); }
+
+/* ═══════════════════════════════════
+   BARRA DE STATS
+═══════════════════════════════════ */
+#stats-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: rgba(255,255,255,0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 3px solid rgba(255,255,255,0.6);
+    padding: 8px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.07);
+}
+#score-display  { font-size: 1.25rem; font-weight: 900; color: #FF8F00; min-width: 68px; }
+#lives-display  { font-size: 1.3rem; letter-spacing: 2px; min-width: 70px; text-align:right; }
+
+/* Barra de progreso */
+.prog-container { flex: 1; display: flex; align-items: center; gap: 8px; }
+.prog-track     { flex: 1; height: 10px; background: #E0E0E0; border-radius: 5px; overflow: hidden; }
+.prog-bar-fill  { height: 100%; background: linear-gradient(90deg, #8BC34A, #4CAF50); border-radius: 5px; transition: width 0.4s ease; width: 0%; }
+.prog-text      { font-size: 0.9rem; font-weight: 700; color: #5C6BC0; min-width: 40px; text-align: right; }
+
+/* ═══════════════════════════════════
+   GAME GRID (menú módulos)
+═══════════════════════════════════ */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 22px;
+    padding: 18px 28px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* ═══════════════════════════════════
+   TARJETA 3D
+═══════════════════════════════════ */
+.game-card {
+    border-radius: 30px;
+    text-align: center;
+    padding: 26px 14px 20px;
+    cursor: pointer;
+    border: 5px solid rgba(255,255,255,0.7);
+    box-shadow: inset 0 -10px 0 rgba(0,0,0,0.13), 0 12px 18px rgba(0,0,0,0.1);
+    transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
     top: 0;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    min-height: 155px;
 }
-
-/* Efecto al aplastar el juguete */
 .game-card:active, .game-card:hover {
-    top: 8px; /* Se hunde */
-    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.1) !important;
-    filter: brightness(1.05);
+    top: 8px;
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.13), 0 4px 6px rgba(0,0,0,0.1) !important;
+    filter: brightness(1.04);
+}
+.game-card h3 { font-size: 1.55rem; margin: 8px 0 3px; font-weight: 900; }
+.game-card p  { font-size: 0.95rem; margin: 0; opacity: 0.7; font-weight: 700; }
+
+/* Estrellas en tarjeta (progreso) */
+.card-stars {
+    position: absolute;
+    bottom: 8px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1rem;
+    line-height: 1;
+    letter-spacing: 1px;
+    white-space: nowrap;
 }
 
-/* Títulos y textos */
-.game-card h3 { font-size: 1.8rem; margin: 10px 0 5px; font-weight: 900; }
-.game-card p { font-size: 1.1rem; margin: 0; opacity: 0.8; font-weight: bold; }
-
-/* Íconos grandes y vivos */
+/* ═══════════════════════════════════
+   ICONOS ANIMADOS
+═══════════════════════════════════ */
 .card-icon, .emoji-grande {
-    font-size: 6rem; 
+    font-size: 5rem;
     display: inline-block;
-    filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.2));
+    filter: drop-shadow(0 8px 6px rgba(0,0,0,0.17));
     animation: respirar 3s ease-in-out infinite;
 }
-
 @keyframes respirar {
     0%, 100% { transform: scale(1) translateY(0); }
-    50% { transform: scale(1.05) translateY(-8px); }
+    50% { transform: scale(1.06) translateY(-7px); }
 }
 
-.hidden { display: none !important; }
+/* ═══════════════════════════════════
+   GAME CANVAS
+═══════════════════════════════════ */
+#game-header-bar {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 10px 16px 0;
+    max-width: 900px;
+    margin: 0 auto;
+}
+#module-title {
+    font-size: 1.2rem;
+    font-weight: 900;
+    color: var(--text-dark);
+    opacity: 0.65;
+}
 
-/* Botón Volver */
+/* ═══════════════════════════════════
+   BOTÓN VOLVER
+═══════════════════════════════════ */
 #btn-back {
     background: #ff5252;
     color: white;
-    font-size: 1.3rem;
-    font-weight: bold;
+    font-size: 1.05rem;
+    font-weight: 700;
     border: none;
-    border-radius: 20px;
-    padding: 12px 25px;
-    box-shadow: inset 0 -5px 0 rgba(0,0,0,0.2), 0 8px 10px rgba(0,0,0,0.1);
+    border-radius: 16px;
+    padding: 10px 18px;
+    box-shadow: inset 0 -5px 0 rgba(0,0,0,0.2), 0 6px 10px rgba(0,0,0,0.1);
     cursor: pointer;
-    margin: 20px;
     transition: all 0.2s;
+    font-family: var(--font-kids);
+    flex-shrink: 0;
 }
-#btn-back:active {
-    transform: translateY(5px);
-    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.1);
-}
+#btn-back:active { transform: translateY(4px); box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.1); }
 
-/* Utilidades para los juegos */
+/* ═══════════════════════════════════
+   INSTRUCCIÓN
+═══════════════════════════════════ */
 .instruccion-titulo {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     color: var(--text-dark);
-    margin-bottom: 10px;
-    animation: pop-in 0.5s ease-out;
+    margin: 14px 16px 8px;
+    text-align: center;
+    animation: pop-in 0.45s ease-out;
+    line-height: 1.3;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
 }
 
-/* Adaptación para pantallas pequeñas (Celulares) - VERSIÓN SIN SCROLL */
-@media (max-width: 600px) {
-    .main-header { padding: 10px; }
-    .game-grid { gap: 10px; padding: 5px; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
-    .game-card { padding: 15px 10px; border-radius: 20px; }
-    
-    .card-icon, .emoji-grande { font-size: 3.5rem; }
-    .game-card h3 { font-size: 1.2rem; }
-    
-    /* El título de la instrucción más pegado arriba */
-    .instruccion-titulo { font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; }
-
-    /* Botón volver ultra compacto y centrado */
-    #btn-back {
-        font-size: 1rem;
-        padding: 8px 15px;
-        margin: 0 auto 15px auto;
-        display: block;
-        width: fit-content;
-    }
-
-    /* Achicamos un poco los renders 3D para que entren las 4 opciones */
-    .wrapper-render img { width: 95px !important; height: 95px !important; }
-    
-    /* Ajustes específicos para el destino del juego de Arrastre */
-    .grafico-destino { width: 140px !important; }
-    
-    /* Ajuste para el juego de Memoria */
-    .memoria-front { font-size: 2.5rem; }
-}
-
-/* =========================================
-   🧩 MOTOR DE JUEGO DE MEMORIA (3D)
-========================================= */
+/* ═══════════════════════════════════
+   MEMORIA
+═══════════════════════════════════ */
 .memoria-grid {
     display: grid;
-    /* Forzamos 4 columnas para que las 8 cartas queden en un rectángulo perfecto de 4x2 */
     grid-template-columns: repeat(4, 1fr);
-    gap: 15px;
-    max-width: 600px;
-    margin: 20px auto;
-    perspective: 1000px; /* Le da profundidad a la cámara 3D */
-    padding: 10px;
+    gap: 12px;
+    max-width: 540px;
+    margin: 14px auto;
+    perspective: 1000px;
+    padding: 8px;
 }
-
-.memoria-card {
-    aspect-ratio: 1 / 1; /* Cartas siempre cuadradas */
-    cursor: pointer;
-    position: relative;
-}
-
+.memoria-card { aspect-ratio: 1 / 1; cursor: pointer; position: relative; }
 .memoria-inner {
-    position: relative;
-    width: 100%;
-    height: 100%;
+    position: relative; width: 100%; height: 100%;
     text-align: center;
-    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
-    transform-style: preserve-3d; /* Permite que los hijos tengan 3D */
+    transition: transform 0.55s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d;
 }
-
-/* Cuando se le agrega la clase desde JS, rota el contenedor interno */
-.memoria-card.volteada .memoria-inner {
-    transform: rotateY(180deg);
-}
-
+.memoria-card.volteada .memoria-inner { transform: rotateY(180deg); }
 .memoria-front, .memoria-back {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    backface-visibility: hidden; /* Oculta la parte trasera cuando se gira */
-    border-radius: 20px;
+    position: absolute; width: 100%; height: 100%;
+    backface-visibility: hidden;
+    border-radius: 18px;
+    display: flex; justify-content: center; align-items: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.12);
+    border: 4px solid rgba(255,255,255,0.8);
+}
+.memoria-front { background: linear-gradient(135deg, #fff, #f0f4ff); font-size: 3rem; color: #ff5252; }
+.memoria-back  { transform: rotateY(180deg); }
+
+/* ═══════════════════════════════════
+   MODAL SELECTOR DE EDAD
+═══════════════════════════════════ */
+#modal-edad {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
     display: flex;
-    justify-content: center;
     align-items: center;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
-    border: 4px solid rgba(255, 255, 255, 0.8);
+    justify-content: center;
+    z-index: 900;
+}
+.modal-edad-box {
+    background: white;
+    border-radius: 28px;
+    padding: 28px 24px;
+    max-width: 380px;
+    width: 92%;
+    text-align: center;
+    box-shadow: 0 24px 48px rgba(0,0,0,0.2);
+}
+.modal-titulo { font-size: 1.5rem; margin: 0 0 18px; color: var(--text-dark); }
+.btn-edad-opcion {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    width: 100%;
+    background: #F5F7FA;
+    border: 3px solid transparent;
+    border-radius: 18px;
+    padding: 14px 18px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    font-family: var(--font-kids);
+    transition: all 0.15s;
+}
+.btn-edad-opcion:hover  { background: #EEF2FF; border-color: #9FA8DA; }
+.btn-edad-opcion.activo { background: #E8F5E9; border-color: #81C784; }
+.edad-emoji  { font-size: 2rem; flex-shrink: 0; }
+.edad-info   { display: flex; flex-direction: column; align-items: flex-start; }
+.edad-info strong { font-size: 1.1rem; color: var(--text-dark); }
+.edad-info small  { font-size: 0.85rem; color: #888; }
+.edad-check  { margin-left: auto; font-size: 1.4rem; color: #4CAF50; }
+.btn-cerrar-modal {
+    margin-top: 8px; background: none; border: none;
+    font-size: 1rem; color: #999; cursor: pointer; font-family: var(--font-kids);
 }
 
-.memoria-front {
-    background-color: #ffffff;
-    font-size: 3.5rem;
-    color: #ff5252;
+/* ═══════════════════════════════════
+   BRAVO OVERLAY (entre niveles)
+═══════════════════════════════════ */
+.bravo-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.75);
+    backdrop-filter: blur(4px);
+    z-index: 200;
+    border-radius: 16px;
+    transition: opacity 0.3s ease;
+    pointer-events: none;
+}
+.bravo-box   { text-align: center; animation: pop-in 0.35s ease-out; }
+.bravo-emoji { font-size: 4.5rem; display: block; }
+.bravo-texto { font-size: 2.2rem; font-weight: 900; color: #4CAF50; margin: 6px 0 0; }
+
+/* ═══════════════════════════════════
+   PANTALLA VICTORIA (módulo completado)
+═══════════════════════════════════ */
+.victoria-pantalla {
+    text-align: center;
+    padding: 40px 20px 50px;
+    max-width: 500px;
+    margin: 0 auto;
+}
+.victoria-titulo { font-size: 2.6rem; color: #4CAF50; margin: 0 0 12px; }
+.estrellas-row   { font-size: 3rem; margin: 10px 0; letter-spacing: 6px; }
+.estrella-victoria.vacia { opacity: 0.25; }
+.victoria-score  { font-size: 2rem; font-weight: 900; color: #FF8F00; margin: 10px 0 6px; }
+.victoria-sub    { font-size: 1.3rem; color: #666; margin: 0; }
+
+/* ═══════════════════════════════════
+   ABECEDARIO — letra grande
+═══════════════════════════════════ */
+.letra-grande-card {
+    font-size: 5rem;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--text-dark);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.07);
+    display: block;
+}
+.item-display-top { text-align: center; padding: 14px 20px 0; animation: pop-in 0.4s ease-out; }
+.item-display-top .emoji-display { font-size: 5.5rem; }
+.item-display-top .palabra-display { font-size: 2rem; font-weight: 900; color: var(--text-dark); margin-top: 4px; }
+
+/* ═══════════════════════════════════
+   AVATAR SVG
+═══════════════════════════════════ */
+#avatar-container {
+    display: flex; justify-content: center; align-items: center;
+    margin: 8px auto; max-width: 340px;
+}
+#avatar-container svg { filter: drop-shadow(0 16px 20px rgba(0,0,0,0.13)); overflow: visible; }
+
+/* ═══════════════════════════════════
+   HIGIENE — seleccionado
+═══════════════════════════════════ */
+.higiene-item-seleccionado {
+    opacity: 0.5;
+    transform: scale(0.93) !important;
+    border-color: var(--success-color) !important;
+    pointer-events: none;
 }
 
-.memoria-back {
-    transform: rotateY(180deg); /* El reverso empieza invertido */
+/* ═══════════════════════════════════
+   UTILIDADES
+═══════════════════════════════════ */
+.hidden { display: none !important; }
+
+.wrapper-render {
+    width: 100%; height: 100%;
+    display: flex; justify-content: center; align-items: center;
+}
+.img-viva { animation: flotar-respirar 4s ease-in-out infinite; transform-origin: bottom center; }
+.img-viva:nth-child(even) { animation-delay: 1.2s; animation-duration: 5s; }
+@keyframes flotar-respirar {
+    0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 10px 10px rgba(0,0,0,0.13)); }
+    50%       { transform: translateY(-8px) scale(1.02); filter: drop-shadow(0 18px 12px rgba(0,0,0,0.08)); }
 }
 
-/* Ajuste compacto para celulares */
-@media (max-width: 500px) {
-    .memoria-grid {
-        gap: 10px;
-    }
-    .memoria-front { font-size: 2.5rem; }
+/* ═══════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════ */
+@media (max-width: 600px) {
+    .header-titulo        { font-size: 1.25rem; }
+    .game-grid            { gap: 10px; padding: 8px 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .game-card            { padding: 14px 8px 18px; border-radius: 20px; min-height: 125px; }
+    .card-icon, .emoji-grande { font-size: 3.4rem; }
+    .game-card h3         { font-size: 1.1rem; }
+    .game-card p          { font-size: 0.8rem; }
+    .instruccion-titulo   { font-size: 1.35rem; margin: 8px 10px 6px; }
+    #btn-back             { font-size: 0.9rem; padding: 8px 14px; }
+    #stats-bar            { padding: 6px 12px; }
+    #score-display        { font-size: 1.05rem; }
+    #lives-display        { font-size: 1.1rem; }
+    .prog-text            { display: none; }
+    .wrapper-render img   { width: 82px !important; height: 82px !important; }
+    .grafico-destino      { width: 130px !important; }
+    .memoria-grid         { gap: 8px; }
+    .memoria-front        { font-size: 2.2rem; }
+    .item-display-top .emoji-display { font-size: 4rem; }
+    .item-display-top .palabra-display { font-size: 1.6rem; }
+    .letra-grande-card    { font-size: 3.5rem; }
+    #avatar-container     { max-width: 270px; }
+    .bienvenida-titulo    { font-size: 1.8rem; }
+    .btn-bienvenida-edad  { min-width: 95px; padding: 15px 10px; }
+    .be-emoji             { font-size: 2.5rem; }
+    .be-label             { font-size: 1rem; }
+}
+
+/* ═══════════════════════════════════
+   PIEZA DE ARRASTRE
+   (clase propia para evitar el top:8px
+   de .game-card:active que rompe el drag)
+═══════════════════════════════════ */
+.pieza-arrastre {
+    will-change: transform;
+    -webkit-tap-highlight-color: transparent;
+}
+.pieza-arrastre:hover {
+    box-shadow: inset 0 -8px 0 rgba(0,0,0,0.12), 0 14px 20px rgba(0,0,0,0.15);
+    filter: brightness(1.04);
 }

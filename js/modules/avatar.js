@@ -1,138 +1,272 @@
-// js/modules/avatar.js
+// js/modules/avatar.js — Avatar 100% SVG, sin emojis PNG
 import GameEngine from '../core/GameEngine.js';
 
 export default class AvatarGame extends GameEngine {
     constructor(datosNivel, callbackNivelCompletado) {
-        super({ lives: 3 });
+        super();
         this.datosNivel = datosNivel;
-        this.onWin = callbackNivelCompletado;
+        this.onWin      = callbackNivelCompletado;
         this.contenedor = document.getElementById('game-content');
-        this.init();
+        this._init();
     }
 
-    init() {
+    _init() {
         this.contenedor.innerHTML = `
-            <h2 class="instruccion-titulo" style="text-align:center;">${this.datosNivel.instruccion_texto}</h2>
-            <div id="avatar-container" class="animate-pop" style="width: 100%; max-width: 400px; margin: 20px auto; display: flex; justify-content: center;">
-                ${this.getAvatarHTML()}
+            <h2 class="instruccion-titulo">${this.datosNivel.instruccion_texto}</h2>
+            <div id="avatar-container">
+                ${this.datosNivel.vista_avatar === 'cara' ? this._svgCara() : this._svgCuerpo()}
             </div>
-            
             <style>
-                .interactive-part {
-                    cursor: pointer;
-                    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-                    /* Esto permite que la pieza destaque sobre las demás al animarse */
-                    position: absolute; 
-                }
-                .interactive-part:active {
-                    transform: scale(0.9) !important;
-                }
-                /* Efecto Premium de Acierto */
-                .part-highlight {
-                    filter: drop-shadow(0 0 25px #8BC34A) brightness(1.1) !important;
-                    transform: scale(1.2) !important;
-                    z-index: 100 !important;
-                }
-                /* Efecto de Error */
-                .part-error {
-                    filter: drop-shadow(0 0 15px #F44336) brightness(0.9) !important;
-                    animation: shake-part 0.5s ease-in-out !important;
-                }
-                @keyframes shake-part {
-                    0%, 100% { transform: translateX(0); }
-                    25% { transform: translateX(-8px) rotate(-5deg); }
-                    75% { transform: translateX(8px) rotate(5deg); }
+                .parte { cursor:pointer; transition:filter 0.2s, transform 0.2s; transform-origin:center; }
+                .parte:hover { filter:brightness(1.12) drop-shadow(0 0 10px rgba(255,210,0,0.7)); }
+                .parte:active { transform:scale(0.92); }
+                .parte-ok    { filter:drop-shadow(0 0 20px #8BC34A) brightness(1.1) !important; transform:scale(1.2) !important; z-index:10; position:relative; }
+                .parte-error { animation:sacudir 0.5s ease-in-out !important; filter:drop-shadow(0 0 14px #F44336) !important; }
+                @keyframes sacudir {
+                    0%,100% { transform:translateX(0) rotate(0); }
+                    20%     { transform:translateX(-10px) rotate(-4deg); }
+                    60%     { transform:translateX(10px) rotate(4deg); }
                 }
             </style>
         `;
         this.hablar(this.datosNivel.instruccion_texto);
-        this.activarInteraccion();
+        this._activarInteraccion();
     }
 
-    getAvatarHTML() {
-        const esCara = this.datosNivel.vista_avatar === "cara";
-        
-        // Usamos los MISMOS renders 3D premium de los diccionarios
-        const urls = {
-            ojo: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Eye/3D/eye_3d.png",
-            oreja: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Ear/Default/3D/ear_3d_default.png",
-            nariz: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Nose/Default/3D/nose_3d_default.png",
-            boca: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Mouth/3D/mouth_3d.png",
-            brazo: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Flexed%20biceps/Default/3D/flexed_biceps_3d_default.png",
-            pierna: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Leg/Default/3D/leg_3d_default.png",
-            cabeza: "https://raw.githubusercontent.com/microsoft/fluentui-emoji/main/assets/Child/Default/3D/child_3d_default.png"
-        };
+    // ═══════════════════════════════════════════════════
+    //  SVG CARA — niña/niño caricaturesca, todo dibujado
+    // ═══════════════════════════════════════════════════
+    _svgCara() {
+        return `
+        <svg viewBox="0 0 280 310" xmlns="http://www.w3.org/2000/svg" width="280" style="overflow:visible">
 
-        if (esCara) {
-            // 📸 ENSAMBLAJE DE LA CARA (Mr. Potato Head Style)
-            return `
-            <div style="position: relative; width: 300px; height: 350px; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15));">
-                <div class="interactive-part" data-id="cabeza" style="top: 50px; left: 25px; width: 250px; height: 280px; background: linear-gradient(135deg, #FFDAB9, #FFCCBC); border-radius: 120px 120px 100px 100px; box-shadow: inset 0 -15px 20px rgba(0,0,0,0.1);"></div>
-                
-                <div class="interactive-part" data-id="cabeza" style="top: 15px; left: 20px; width: 260px; height: 100px; background: #FFCA28; border-radius: 120px 120px 40px 40px; box-shadow: inset 0 -10px 15px rgba(0,0,0,0.15);"></div>
-                
-                <img class="interactive-part" data-id="oreja" src="${urls.oreja}" style="top: 150px; left: -15px; width: 75px; transform: scaleX(-1);">
-                <img class="interactive-part" data-id="oreja" src="${urls.oreja}" style="top: 150px; right: -15px; width: 75px;">
-                
-                <img class="interactive-part" data-id="ojo" src="${urls.ojo}" style="top: 125px; left: 55px; width: 80px;">
-                <img class="interactive-part" data-id="ojo" src="${urls.ojo}" style="top: 125px; right: 55px; width: 80px;">
-                
-                <img class="interactive-part" data-id="nariz" src="${urls.nariz}" style="top: 185px; left: 110px; width: 80px;">
-                
-                <img class="interactive-part" data-id="boca" src="${urls.boca}" style="top: 245px; left: 105px; width: 90px;">
-            </div>
-            `;
-        } else {
-            // 🧍 ENSAMBLAJE DEL CUERPO ENTERO
-            return `
-            <div style="position: relative; width: 300px; height: 420px; filter: drop-shadow(0 20px 20px rgba(0,0,0,0.15));">
-                <div class="interactive-part" data-id="torso" style="top: 130px; left: 85px; width: 130px; height: 150px; background: #4FC3F7; border-radius: 40px; box-shadow: inset 0 -15px 20px rgba(0,0,0,0.2);"></div>
-                
-                <img class="interactive-part" data-id="brazo" src="${urls.brazo}" style="top: 125px; left: -25px; width: 130px; transform: scaleX(-1) rotate(-15deg);">
-                <img class="interactive-part" data-id="brazo" src="${urls.brazo}" style="top: 125px; right: -25px; width: 130px; transform: rotate(-15deg);">
-                
-                <img class="interactive-part" data-id="pierna" src="${urls.pierna}" style="top: 260px; left: 75px; width: 85px;">
-                <img class="interactive-part" data-id="pierna" src="${urls.pierna}" style="top: 260px; right: 75px; width: 85px; transform: scaleX(-1);">
+          <!-- ── PELO (fondo, detrás de la cara) -->
+          <ellipse cx="140" cy="108" rx="105" ry="95" fill="#E8A020"/>
 
-                <img class="interactive-part" data-id="cabeza" src="${urls.cabeza}" style="top: 0px; left: 80px; width: 140px; z-index: 5;">
-            </div>
-            `;
-        }
+          <!-- ── CARA BASE -->
+          <ellipse cx="140" cy="168" rx="97" ry="110" fill="#FDDAB0"/>
+          <!-- Sombra sutil bajo mejillas -->
+          <ellipse cx="140" cy="240" rx="90" ry="40" fill="rgba(0,0,0,0.04)"/>
+
+          <!-- ── OREJAS — data-id="oreja" -->
+          <g class="parte" data-id="oreja">
+            <!-- oreja izquierda -->
+            <ellipse cx="40"  cy="180" rx="18" ry="24" fill="#FDDAB0"/>
+            <ellipse cx="40"  cy="180" rx="11" ry="16" fill="#F4B885"/>
+            <!-- oreja derecha -->
+            <ellipse cx="240" cy="180" rx="18" ry="24" fill="#FDDAB0"/>
+            <ellipse cx="240" cy="180" rx="11" ry="16" fill="#F4B885"/>
+          </g>
+
+          <!-- ── PELO (frente, cubre frente y orejas arriba) -->
+          <ellipse cx="140" cy="80"  rx="105" ry="78"  fill="#E8A020"/>
+          <!-- flequillo curvo -->
+          <path d="M 38 115 Q 55 55 140 50 Q 225 55 242 115" fill="#E8A020"/>
+          <!-- brillo pelo -->
+          <ellipse cx="110" cy="65" rx="28" ry="11" fill="rgba(255,255,255,0.18)" transform="rotate(-18,110,65)"/>
+
+          <!-- ── CEJAS -->
+          <path d="M 78 140 Q 98 129 118 140" fill="none" stroke="#8B5A18" stroke-width="3.5" stroke-linecap="round"/>
+          <path d="M 162 140 Q 182 129 202 140" fill="none" stroke="#8B5A18" stroke-width="3.5" stroke-linecap="round"/>
+
+          <!-- ── OJOS — data-id="ojo" -->
+          <g class="parte" data-id="ojo">
+            <!-- esclerótica izquierda -->
+            <ellipse cx="98"  cy="164" rx="21" ry="20" fill="white"/>
+            <!-- iris izq -->
+            <circle  cx="98"  cy="165" r="13"  fill="#4A7FC1"/>
+            <!-- pupila izq -->
+            <circle  cx="98"  cy="165" r="7.5" fill="#1a1a2e"/>
+            <!-- brillo izq -->
+            <circle  cx="104" cy="159" r="3.5" fill="white"/>
+            <circle  cx="95"  cy="169" r="1.8" fill="white"/>
+            <!-- pestaña izq -->
+            <path d="M 78 152 Q 76 143 80 138" fill="none" stroke="#3a2a10" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M 89 149 Q 89 140 93 136" fill="none" stroke="#3a2a10" stroke-width="2.2" stroke-linecap="round"/>
+
+            <!-- esclerótica derecha -->
+            <ellipse cx="182" cy="164" rx="21" ry="20" fill="white"/>
+            <!-- iris der -->
+            <circle  cx="182" cy="165" r="13"  fill="#4A7FC1"/>
+            <!-- pupila der -->
+            <circle  cx="182" cy="165" r="7.5" fill="#1a1a2e"/>
+            <!-- brillo der -->
+            <circle  cx="188" cy="159" r="3.5" fill="white"/>
+            <circle  cx="179" cy="169" r="1.8" fill="white"/>
+            <!-- pestaña der -->
+            <path d="M 171 149 Q 171 140 175 136" fill="none" stroke="#3a2a10" stroke-width="2.2" stroke-linecap="round"/>
+            <path d="M 184 152 Q 186 143 190 138" fill="none" stroke="#3a2a10" stroke-width="2.2" stroke-linecap="round"/>
+          </g>
+
+          <!-- ── NARIZ — data-id="nariz" -->
+          <g class="parte" data-id="nariz">
+            <path d="M 130 200 Q 140 218 150 200" fill="none" stroke="#D4956A" stroke-width="3" stroke-linecap="round"/>
+            <!-- fosas nasales -->
+            <ellipse cx="128" cy="207" rx="6" ry="4.5" fill="rgba(0,0,0,0.09)"/>
+            <ellipse cx="152" cy="207" rx="6" ry="4.5" fill="rgba(0,0,0,0.09)"/>
+          </g>
+
+          <!-- ── MEJILLAS rosadas -->
+          <ellipse cx="72"  cy="222" rx="26" ry="18" fill="rgba(255,110,110,0.22)"/>
+          <ellipse cx="208" cy="222" rx="26" ry="18" fill="rgba(255,110,110,0.22)"/>
+
+          <!-- ── BOCA — data-id="boca" -->
+          <g class="parte" data-id="boca">
+            <!-- sonrisa -->
+            <path d="M 106 244 Q 140 278 174 244" fill="none" stroke="#C04A2A" stroke-width="4.5" stroke-linecap="round"/>
+            <!-- relleno blanco (dientes) -->
+            <path d="M 110 247 Q 140 268 170 247" fill="white"/>
+            <!-- línea entre dientes -->
+            <line x1="140" y1="247" x2="140" y2="266" stroke="#E0DDD8" stroke-width="1.5"/>
+            <!-- labio inferior -->
+            <path d="M 108 252 Q 140 280 172 252" fill="rgba(180,80,50,0.12)"/>
+          </g>
+
+        </svg>`;
     }
 
-    activarInteraccion() {
-        const partes = this.contenedor.querySelectorAll('.interactive-part');
+    // ═══════════════════════════════════════════════════
+    //  SVG CUERPO — personaje completo de pie
+    // ═══════════════════════════════════════════════════
+    _svgCuerpo() {
+        return `
+        <svg viewBox="0 0 280 400" xmlns="http://www.w3.org/2000/svg" width="260" style="overflow:visible">
+
+          <!-- ── CABEZA — data-id="cabeza" -->
+          <g class="parte" data-id="cabeza">
+            <!-- pelo -->
+            <ellipse cx="140" cy="50"  rx="56" ry="50" fill="#E8A020"/>
+            <!-- cara -->
+            <ellipse cx="140" cy="64"  rx="50" ry="56" fill="#FDDAB0"/>
+            <!-- flequillo -->
+            <ellipse cx="140" cy="22"  rx="56" ry="38" fill="#E8A020"/>
+            <!-- ojos simples -->
+            <ellipse cx="122" cy="62" rx="10" ry="10" fill="white"/>
+            <circle  cx="122" cy="62" r="6"  fill="#1a1a2e"/>
+            <circle  cx="126" cy="58" r="2.5"fill="white"/>
+            <ellipse cx="158" cy="62" rx="10" ry="10" fill="white"/>
+            <circle  cx="158" cy="62" r="6"  fill="#1a1a2e"/>
+            <circle  cx="162" cy="58" r="2.5"fill="white"/>
+            <!-- nariz -->
+            <path d="M 133 76 Q 140 84 147 76" fill="none" stroke="#D4956A" stroke-width="2.5" stroke-linecap="round"/>
+            <!-- sonrisa -->
+            <path d="M 124 92 Q 140 108 156 92" fill="none" stroke="#C04A2A" stroke-width="3.5" stroke-linecap="round"/>
+            <path d="M 126 94 Q 140 106 154 94" fill="white"/>
+            <!-- mejillas -->
+            <ellipse cx="108" cy="80" rx="14" ry="9" fill="rgba(255,110,110,0.22)"/>
+            <ellipse cx="172" cy="80" rx="14" ry="9" fill="rgba(255,110,110,0.22)"/>
+          </g>
+
+          <!-- ── CUELLO -->
+          <rect x="128" y="115" width="24" height="20" rx="8" fill="#FDDAB0"/>
+
+          <!-- ── TORSO / CAMISETA -->
+          <rect x="84"  y="132" width="112" height="106" rx="26" fill="#5BC8F5"/>
+          <!-- cuello camiseta V -->
+          <path d="M 128 132 Q 140 148 152 132" fill="none" stroke="#29B6F6" stroke-width="2.5"/>
+          <!-- pliegue central -->
+          <line x1="140" y1="148" x2="140" y2="234" stroke="rgba(0,0,0,0.06)" stroke-width="2"/>
+
+          <!-- ── BRAZO IZQUIERDO (fondo, detrás del torso) -->
+          <rect x="50" y="140" width="36" height="80" rx="18" fill="#FDDAB0" transform="rotate(10,68,180)"/>
+          <!-- ── BRAZO DERECHO -->
+          <rect x="194" y="140" width="36" height="80" rx="18" fill="#FDDAB0" transform="rotate(-10,212,180)"/>
+
+          <!-- ── MANOS — data-id="mano" -->
+          <g class="parte" data-id="mano">
+            <!-- palma izquierda -->
+            <circle cx="48"  cy="228" r="20" fill="#FDDAB0"/>
+            <!-- dedos izquierda (4 óvalos) -->
+            <ellipse cx="30" cy="215" rx="8" ry="12" fill="#FDDAB0" transform="rotate(-20,30,215)"/>
+            <ellipse cx="36" cy="208" rx="8" ry="12" fill="#FDDAB0" transform="rotate(-8,36,208)"/>
+            <ellipse cx="46" cy="206" rx="8" ry="12" fill="#FDDAB0" transform="rotate(4,46,206)"/>
+            <ellipse cx="56" cy="208" rx="8" ry="12" fill="#FDDAB0" transform="rotate(12,56,208)"/>
+            <!-- uñitas izq -->
+            <ellipse cx="30" cy="206" rx="5" ry="3" fill="#F4B885" transform="rotate(-20,30,206)"/>
+            <ellipse cx="36" cy="199" rx="5" ry="3" fill="#F4B885" transform="rotate(-8,36,199)"/>
+            <ellipse cx="46" cy="197" rx="5" ry="3" fill="#F4B885"/>
+            <ellipse cx="56" cy="199" rx="5" ry="3" fill="#F4B885" transform="rotate(12,56,199)"/>
+
+            <!-- palma derecha -->
+            <circle cx="232" cy="228" r="20" fill="#FDDAB0"/>
+            <!-- dedos derecha -->
+            <ellipse cx="224" cy="208" rx="8" ry="12" fill="#FDDAB0" transform="rotate(-12,224,208)"/>
+            <ellipse cx="234" cy="206" rx="8" ry="12" fill="#FDDAB0" transform="rotate(-4,234,206)"/>
+            <ellipse cx="244" cy="208" rx="8" ry="12" fill="#FDDAB0" transform="rotate(8,244,208)"/>
+            <ellipse cx="250" cy="215" rx="8" ry="12" fill="#FDDAB0" transform="rotate(20,250,215)"/>
+            <!-- uñitas der -->
+            <ellipse cx="224" cy="199" rx="5" ry="3" fill="#F4B885" transform="rotate(-12,224,199)"/>
+            <ellipse cx="234" cy="197" rx="5" ry="3" fill="#F4B885"/>
+            <ellipse cx="244" cy="199" rx="5" ry="3" fill="#F4B885" transform="rotate(8,244,199)"/>
+            <ellipse cx="250" cy="206" rx="5" ry="3" fill="#F4B885" transform="rotate(20,250,206)"/>
+          </g>
+
+          <!-- ── PANTALÓN / SHORTS -->
+          <rect x="86"  y="232" width="108" height="62" rx="14" fill="#1E6FC5"/>
+          <!-- costuras -->
+          <line x1="140" y1="232" x2="140" y2="294" stroke="rgba(255,255,255,0.2)" stroke-width="2"/>
+
+          <!-- ── PIERNA IZQUIERDA -->
+          <rect x="88"  y="280" width="46" height="88" rx="22" fill="#FDDAB0"/>
+          <!-- ── PIERNA DERECHA -->
+          <rect x="146" y="280" width="46" height="88" rx="22" fill="#FDDAB0"/>
+
+          <!-- ── PIES — data-id="pie" -->
+          <g class="parte" data-id="pie">
+            <!-- pie izquierdo — zapatilla -->
+            <ellipse cx="106" cy="374" rx="30" ry="17" fill="#E53935"/>
+            <ellipse cx="96"  cy="370" rx="20" ry="13" fill="#EF5350"/>
+            <!-- suela -->
+            <ellipse cx="106" cy="377" rx="30" ry="8"  fill="#B71C1C" opacity="0.4"/>
+            <!-- agujetas decorativas -->
+            <line x1="96" y1="368" x2="116" y2="368" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <line x1="96" y1="372" x2="116" y2="372" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+            <!-- pie derecho -->
+            <ellipse cx="174" cy="374" rx="30" ry="17" fill="#E53935"/>
+            <ellipse cx="184" cy="370" rx="20" ry="13" fill="#EF5350"/>
+            <ellipse cx="174" cy="377" rx="30" ry="8"  fill="#B71C1C" opacity="0.4"/>
+            <line x1="164" y1="368" x2="184" y2="368" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/>
+            <line x1="164" y1="372" x2="184" y2="372" stroke="white" stroke-width="1.5" stroke-dasharray="3 2"/>
+          </g>
+
+        </svg>`;
+    }
+
+    // ═══════════════════════════════════════════════════
+    _activarInteraccion() {
+        const partes     = this.contenedor.querySelectorAll('.parte[data-id]');
         const objetivoId = this.datosNivel.pieza.id;
 
         partes.forEach(parte => {
-            parte.onclick = (e) => {
+            parte.addEventListener('click', e => {
                 e.stopPropagation();
-                // Verificamos usando el data-attribute
-                const esCorrecto = (parte.getAttribute('data-id') === objetivoId);
-                this.feedbackVisual(esCorrecto, parte);
-            };
+                const esCorrecto = parte.getAttribute('data-id') === objetivoId;
+                this._feedback(esCorrecto, parte);
+            });
         });
     }
 
-    feedbackVisual(esCorrecto, elemento) {
-        // Bloqueamos clics dobles mientras se anima
-        elemento.style.pointerEvents = 'none';
+    _feedback(esCorrecto, el) {
+        // Bloquear todos mientras se anima
+        this.contenedor.querySelectorAll('.parte').forEach(p => p.style.pointerEvents = 'none');
 
         if (esCorrecto) {
-            this.reproducirSonido('https://assets.mixkit.co/active_storage/sfx/2013/2013-preview.mp3'); 
-            elemento.classList.add('part-highlight');
-            this.hablar(`¡Ahí está! Usamos ${this.datosNivel.pieza.articulo} ${this.datosNivel.pieza.nombre}.`);
-            
-            setTimeout(() => this.onWin(), 2500);
+            this.reproducirSonido(this.SOUNDS.SUCCESS);
+            this.lanzarConfeti();
+            GameEngine.addScore(10);
+            el.classList.add('parte-ok');
+            this.hablar(`¡Muy bien! Eso es ${this.datosNivel.pieza.articulo} ${this.datosNivel.pieza.nombre}.`);
+            setTimeout(() => this.onWin(), 2200);
         } else {
-            this.reproducirSonido('https://assets.mixkit.co/active_storage/sfx/2003/2003-preview.mp3');
-            elemento.classList.add('part-error');
+            this.reproducirSonido(this.SOUNDS.ERROR);
+            GameEngine.loseLife();
+            el.classList.add('parte-error');
             this.hablar(`Esa no es ${this.datosNivel.pieza.articulo} ${this.datosNivel.pieza.nombre}. ¡Busca bien!`);
-            
             setTimeout(() => {
-                elemento.classList.remove('part-error');
-                elemento.style.pointerEvents = 'auto'; // Liberamos el clic
-            }, 600);
+                el.classList.remove('parte-error');
+                this.contenedor.querySelectorAll('.parte').forEach(p => p.style.pointerEvents = 'auto');
+            }, 700);
         }
     }
 }

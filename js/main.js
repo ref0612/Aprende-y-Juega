@@ -1,120 +1,237 @@
-// js/main.js - Controlador Principal (Clean Architecture)
+// js/main.js — v4 con opuestos, frutas y módulo emociones pedagógico
 
-import { generarNiveles } from './niveles.js';
-import MemoriaGame from './modules/memoria.js';
-import ArrastreGame from './modules/arrastre.js';   
-import SeleccionGame from './modules/seleccion.js';
-import AvatarGame from './modules/avatar.js';
-import MathGame from './modules/math.js'; // Agrega este import arriba
+import GameEngine          from './core/GameEngine.js';
+import { Progreso }        from './core/Progreso.js';
+import { Transicion }      from './core/Transicion.js';
+import { generarNiveles }  from './niveles.js';
+import MemoriaGame         from './modules/memoria.js';
+import ArrastreGame        from './modules/arrastre.js';
+import SeleccionGame       from './modules/seleccion.js';
+import AvatarGame          from './modules/avatar.js';
+import MathGame            from './modules/math.js';
+import EmocionesGame       from './modules/emociones.js';
+import HigieneGame         from './modules/higiene.js';
+import AbecedarioGame      from './modules/abecedario.js';
+import OpuestosGame, { OPUESTOS } from './modules/opuestos.js';
+import FrutasGame          from './modules/frutas.js';
 
-// 1. GENERAMOS LOS DATOS AL INICIAR
-const mundosData = {
-    animales: generarNiveles('animales', 80),
-    cuerpo: generarNiveles('cuerpo', 60),
-    emociones: generarNiveles('emociones', 40),
-    colores_formas: generarNiveles('colores_formas', 40),
-    math: generarNiveles('math', 40),
-    vehiculos: generarNiveles('vehiculos', 60)
+const EDADES = {
+    bebes:    { label:'🍼 Bebés',    rango:'1 – 2 años', nivelesMax:12, emoji:'🍼' },
+    pequenos: { label:'⭐ Pequeños', rango:'3 – 4 años', nivelesMax:25, emoji:'⭐' },
+    grandes:  { label:'🚀 Grandes',  rango:'4 – 5 años', nivelesMax:40, emoji:'🚀' },
+};
+
+const MODULOS_META = {
+    animales:      { titulo:'🐶 Animales',        cantBase:80 },
+    cuerpo:        { titulo:'🧒 Mi Cuerpo',        cantBase:60 },
+    colores_formas:{ titulo:'🔷 Colores y Formas', cantBase:50 },
+    emociones:     { titulo:'😊 Emociones',        cantBase:30 },
+    math:          { titulo:'🔢 Matemáticas',      cantBase:40 },
+    vehiculos:     { titulo:'🚀 Transportes',      cantBase:60 },
+    abecedario:    { titulo:'🔤 Abecedario',       cantBase:54 },
+    higiene:       { titulo:'🧼 Higiene',           cantBase:20 },
+    opuestos:      { titulo:'↔️ Opuestos',          cantBase:24 },
+    frutas:        { titulo:'🍎 Frutas y Verduras', cantBase:20 },
 };
 
 class AppController {
-    constructor(datosDeLosMundos) {
-        this.mundosData = datosDeLosMundos; 
-        this.menu = document.getElementById('menu-principal');
-        this.canvas = document.getElementById('game-canvas');
-        this.gameContent = document.getElementById('game-content');
-        this.btnBack = document.getElementById('btn-back');
-        
-        // 👇 AGREGAMOS ESTA LÍNEA para controlar el título
-        this.tituloPrincipal = document.querySelector('.main-header h1'); 
-        
+    constructor() {
+        this.edadActual      = Progreso.getEdad() || null;
+        this.mundosData      = {};
         this.nivelesActuales = [];
-        this.indiceNivel = 0;
+        this.indiceNivel     = 0;
+        this.moduloActual    = '';
 
-        this.init();
+        this.elMenu       = document.getElementById('menu-principal');
+        this.elCanvas     = document.getElementById('game-canvas');
+        this.elContent    = document.getElementById('game-content');
+        this.elBtnBack    = document.getElementById('btn-back');
+        this.elStatsBar   = document.getElementById('stats-bar');
+        this.elHeader     = document.getElementById('main-header');
+        this.elModTitle   = document.getElementById('module-title');
+        this.elProgFill   = document.getElementById('prog-bar-fill');
+        this.elProgText   = document.getElementById('prog-text');
+        this.elBienvenida = document.getElementById('bienvenida');
+        this.elBtnEdad    = document.getElementById('btn-edad-actual');
+
+        if (this.edadActual) {
+            this._generarMundos();
+            this._actualizarEstrellas();
+        } else {
+            this._mostrarBienvenida();
+        }
+        this._bindEvents();
     }
 
-    init() {
-        // Asignamos eventos a las tarjetas del menú
-        document.querySelectorAll('.game-card').forEach(card => {
+    _generarMundos() {
+        const cfg = EDADES[this.edadActual] || EDADES.pequenos;
+        for (const [key, meta] of Object.entries(MODULOS_META)) {
+            const cant = Math.min(meta.cantBase, cfg.nivelesMax);
+            this.mundosData[key] = generarNiveles(key, cant, this.edadActual);
+        }
+    }
+
+    _bindEvents() {
+        document.querySelectorAll('.game-card[data-module]').forEach(card => {
             card.addEventListener('click', () => {
-                const moduleName = card.dataset.module;
-                this.iniciarModulo(moduleName);
+                const mod = card.dataset.module;
+                if (this.mundosData[mod]?.length > 0) this._iniciarModulo(mod);
             });
         });
-        
-        // ¡ERROR ARREGLADO! Ahora llama a la función correcta
-        this.btnBack.addEventListener('click', () => this.regresarAlMenu());
-    }
-
-    iniciarModulo(moduleName) {
-        // Validación de seguridad por si el módulo no está creado aún
-        if (this.mundosData[moduleName]) {
-            this.menu.classList.add('hidden');
-            this.canvas.classList.remove('hidden');
-            
-            // 👇 OCULTAMOS EL TÍTULO AL JUGAR para dar más espacio
-            if(this.tituloPrincipal) this.tituloPrincipal.classList.add('hidden');
-
-            this.nivelesActuales = this.mundosData[moduleName];
-            this.indiceNivel = 0;
-            this.cargarSiguienteNivel();
-        } else {
-            console.warn(`🚧 El módulo '${moduleName}' está en construcción.`);
+        this.elBtnBack.addEventListener('click', () => this._regresarAlMenu());
+        if (this.elBtnEdad) {
+            this._refrescarBtnEdad();
+            this.elBtnEdad.addEventListener('click', () => this._modalEdad());
+        }
+        document.querySelectorAll('.btn-bienvenida-edad').forEach(btn => {
+            btn.addEventListener('click', () => this._elegirEdad(btn.dataset.edad));
+        });
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./sw.js').catch(()=>{});
         }
     }
 
-    cargarSiguienteNivel() {
-        if (this.indiceNivel < this.nivelesActuales.length) {
-            const datosNivel = this.nivelesActuales[this.indiceNivel];
-            this.gameContent.innerHTML = ''; 
+    _mostrarBienvenida() {
+        this.elMenu.classList.add('hidden');
+        this.elHeader.classList.add('hidden');
+        if (this.elBienvenida) this.elBienvenida.classList.remove('hidden');
+    }
 
-            const onNivelCompletado = () => {
-                this.indiceNivel++;
-                this.cargarSiguienteNivel();
-            };
+    _elegirEdad(edad) {
+        Progreso.setEdad(edad);
+        this.edadActual = edad;
+        this._generarMundos();
+        this._refrescarBtnEdad();
+        this._actualizarEstrellas();
+        if (this.elBienvenida) this.elBienvenida.classList.add('hidden');
+        this.elHeader.classList.remove('hidden');
+        this.elMenu.classList.remove('hidden');
+    }
 
-            // Fábrica de Motores
-            switch (datosNivel.tipo_motor) {
-                case 'memoria':
-                    new MemoriaGame(datosNivel, onNivelCompletado);
-                    break;
-                case 'arrastre':
-                    new ArrastreGame(datosNivel, onNivelCompletado);
-                    break;
-                case 'seleccion':
-                    new SeleccionGame(datosNivel, onNivelCompletado);
-                    break;
-                case 'identificar_avatar':
-                    new AvatarGame(datosNivel, onNivelCompletado);
-                    break;
-                case 'math':
-                    new MathGame(datosNivel, onNivelCompletado);
-                    break;
-                case 'conteo':
-                    new MathGame(datosNivel, onNivelCompletado);
-                    break;
+    _modalEdad() {
+        const overlay = document.createElement('div');
+        overlay.id = 'modal-edad';
+        overlay.innerHTML = `
+            <div class="modal-edad-box animate-pop">
+                <h2 class="modal-titulo">¿Cuántos años tienes?</h2>
+                ${Object.entries(EDADES).map(([key,cfg]) => `
+                    <button class="btn-edad-opcion ${key===this.edadActual?'activo':''}" data-edad="${key}">
+                        <span class="edad-emoji">${cfg.emoji}</span>
+                        <span class="edad-info"><strong>${cfg.label}</strong><small>${cfg.rango}</small></span>
+                        ${key===this.edadActual?'<span class="edad-check">✓</span>':''}
+                    </button>`).join('')}
+                <button class="btn-cerrar-modal">✕ Cerrar</button>
+            </div>`;
+        document.body.appendChild(overlay);
+        overlay.querySelectorAll('.btn-edad-opcion').forEach(btn => {
+            btn.onclick = () => { this._elegirEdad(btn.dataset.edad); overlay.remove(); };
+        });
+        overlay.querySelector('.btn-cerrar-modal').onclick = () => overlay.remove();
+        overlay.onclick = e => { if (e.target===overlay) overlay.remove(); };
+    }
+
+    _refrescarBtnEdad() {
+        if (!this.elBtnEdad || !this.edadActual) return;
+        const cfg = EDADES[this.edadActual];
+        this.elBtnEdad.textContent = cfg.emoji + ' ' + cfg.label;
+    }
+
+    _actualizarEstrellas() {
+        const todos = Progreso.getTodosModulos();
+        document.querySelectorAll('.game-card[data-module]').forEach(card => {
+            const mod  = card.dataset.module;
+            const data = todos[mod];
+            card.querySelectorAll('.card-stars').forEach(el=>el.remove());
+            if (data?.estrellas > 0) {
+                const div = document.createElement('div');
+                div.className = 'card-stars';
+                div.innerHTML = Array.from({length:3},(_,i)=>
+                    `<span>${i<data.estrellas?'⭐':'☆'}</span>`).join('');
+                card.appendChild(div);
             }
-        } else {
-            // Pantalla de victoria final
-            this.gameContent.innerHTML = `
-                <div style="text-align:center; padding: 50px; animation: pop-in 0.5s ease-out;">
-                    <h2 style="font-size: 3rem; color: #4CAF50;">🌟 ¡ERES GENIAL! 🌟</h2>
-                    <p style="font-size: 1.5rem; color: #555;">Completaste todos los desafíos.</p>
-                </div>`;
-            setTimeout(() => this.regresarAlMenu(), 4000);
+        });
+        const totalEl = document.getElementById('total-estrellas');
+        if (totalEl) totalEl.textContent = `⭐ ${Progreso.getTotalEstrellas()}`;
+    }
+
+    _iniciarModulo(modName) {
+        this.moduloActual    = modName;
+        this.nivelesActuales = this.mundosData[modName];
+        this.indiceNivel     = 0;
+        GameEngine.resetSession();
+        this.elMenu.classList.add('hidden');
+        this.elHeader.classList.add('hidden');
+        this.elCanvas.classList.remove('hidden');
+        this.elStatsBar.classList.remove('hidden');
+        if (this.elModTitle) this.elModTitle.textContent = MODULOS_META[modName]?.titulo || modName;
+        this._actualizarProgreso();
+        this._cargarNivel();
+    }
+
+    async _cargarNivel() {
+        if (this.indiceNivel >= this.nivelesActuales.length) {
+            this._completarModulo(); return;
+        }
+        await Transicion.fadeNivel(this.elContent);
+        this.elContent.innerHTML = '';
+        this._actualizarProgreso();
+
+        const datos = this.nivelesActuales[this.indiceNivel];
+        const onCompleto = async () => {
+            if (this.indiceNivel > 0 && this.indiceNivel % 5 === 0) {
+                await Transicion.mostrarBravo(this.elContent, '¡Sigue así!', '🌟');
+            }
+            this.indiceNivel++;
+            this._cargarNivel();
+        };
+
+        switch (datos.tipo_motor) {
+            case 'memoria':            new MemoriaGame(datos, onCompleto);    break;
+            case 'arrastre':           new ArrastreGame(datos, onCompleto);   break;
+            case 'seleccion':          new SeleccionGame(datos, onCompleto);  break;
+            case 'identificar_avatar': new AvatarGame(datos, onCompleto);     break;
+            case 'conteo': case 'math':new MathGame(datos, onCompleto);       break;
+            case 'emociones':          new EmocionesGame(datos, onCompleto);  break;
+            case 'higiene':            new HigieneGame(datos, onCompleto);    break;
+            case 'abecedario':         new AbecedarioGame(datos, onCompleto); break;
+            case 'opuestos': {
+                // El motor de opuestos necesita el objeto OPUESTO completo
+                const op = OPUESTOS.find(o => o.id === datos.opuestoId);
+                if (op) {
+                    const nivelOp = { ...datos, pregunta:op.pregunta, audio:op.audio, opciones:op.opciones };
+                    new OpuestosGame(nivelOp, onCompleto);
+                } else { onCompleto(); }
+                break;
+            }
+            case 'frutas':             new FrutasGame(datos, onCompleto);     break;
+            default: onCompleto();
         }
     }
 
-    regresarAlMenu() {
-        this.canvas.classList.add('hidden');
-        this.menu.classList.remove('hidden');
-        this.gameContent.innerHTML = '';
-        
-        // 👇 MOSTRAMOS EL TÍTULO DE NUEVO AL VOLVER AL MENÚ
-        if(this.tituloPrincipal) this.tituloPrincipal.classList.remove('hidden');
+    _completarModulo() {
+        const score     = GameEngine.score;
+        const total     = this.nivelesActuales.length;
+        const estrellas = Progreso.guardarModulo(this.moduloActual, score, total);
+        this._actualizarEstrellas();
+        Transicion.pantallaVictoria(this.elContent, score, estrellas, this.moduloActual);
+        setTimeout(() => this._regresarAlMenu(), 5000);
+    }
+
+    _actualizarProgreso() {
+        const total = this.nivelesActuales.length;
+        const pct   = Math.round((this.indiceNivel / total) * 100);
+        if (this.elProgFill) this.elProgFill.style.width = pct + '%';
+        if (this.elProgText) this.elProgText.textContent = `${this.indiceNivel+1}/${total}`;
+    }
+
+    _regresarAlMenu() {
+        this.elCanvas.classList.add('hidden');
+        this.elStatsBar.classList.add('hidden');
+        this.elHeader.classList.remove('hidden');
+        this.elMenu.classList.remove('hidden');
+        this.elContent.innerHTML = '';
+        if (window.speechSynthesis) window.speechSynthesis.cancel();
     }
 }
 
-// 3. INICIAMOS LA APP
-const app = new AppController(mundosData);
+new AppController();

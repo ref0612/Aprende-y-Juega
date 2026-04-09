@@ -1,16 +1,26 @@
 {
-  "name": "Juegos Educativos Niños",
-  "short_name": "JuegosNiños",
+  "name": "Aprende y Juega",
+  "short_name": "Aprende y Juega",
+  "description": "App educativa interactiva para niños de 1 a 5 años",
   "start_url": "./index.html",
-  "display": "fullscreen",
-  "background_color": "#FFEB3B",
-  "theme_color": "#FFEB3B",
-  "orientation": "landscape",
+  "display": "standalone",
+  "background_color": "#E0F7FA",
+  "theme_color": "#4FC3F7",
+  "orientation": "any",
+  "lang": "es",
+  "categories": ["education", "kids"],
   "icons": [
     {
-      "src": "assets/img/icono.png",
-      "sizes": "192x192",
-      "type": "image/png"
+      "src": "assets/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    },
+    {
+      "src": "assets/icon-192.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "maskable"
     }
   ]
 }

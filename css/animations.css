@@ -1,94 +1,135 @@
-/* css/animations.css */
+/* css/animations.css v3 */
 
-/* Sacudida para errores (Shake) */
+/* ─── FEEDBACK ───────────────────────────────────── */
 @keyframes shake-error {
     0%, 100% { transform: translateX(0) rotate(0); }
-    15% { transform: translateX(-8px) rotate(-3deg); }
-    30% { transform: translateX(8px) rotate(3deg); }
-    45% { transform: translateX(-6px) rotate(-2deg); }
-    60% { transform: translateX(6px) rotate(2deg); }
+    15% { transform: translateX(-9px) rotate(-3deg); }
+    35% { transform: translateX(9px)  rotate(3deg); }
+    55% { transform: translateX(-6px) rotate(-2deg); }
+    75% { transform: translateX(6px)  rotate(2deg); }
 }
-
 .animate-shake-error {
     animation: shake-error 0.5s ease-in-out !important;
     border-color: var(--error-color) !important;
-    box-shadow: 0 0 15px rgba(255, 82, 82, 0.5) !important;
+    box-shadow: 0 0 18px rgba(255,82,82,0.45) !important;
 }
 
-/* Rebote para aciertos (Bounce) */
 @keyframes bounce-success {
-    0%, 100% { transform: scale(1); }
-    50% { transform: scale(1.1); }
+    0%   { transform: scale(1); }
+    40%  { transform: scale(1.14); }
+    70%  { transform: scale(0.96); }
+    100% { transform: scale(1); }
 }
-
 .animate-bounce-success {
     animation: bounce-success 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
     border-color: var(--success-color) !important;
-    box-shadow: 0 0 20px rgba(139, 195, 74, 0.6) !important;
+    box-shadow: 0 0 22px rgba(139,195,74,0.55) !important;
 }
 
-/* Aparición suave de tarjetas */
+/* ─── APARICIÓN ──────────────────────────────────── */
 @keyframes pop-in {
-    0% { transform: scale(0.5); opacity: 0; }
-    70% { transform: scale(1.05); }
-    100% { transform: scale(1); opacity: 1; }
+    0%   { transform: scale(0.5); opacity: 0; }
+    65%  { transform: scale(1.06); opacity: 1; }
+    100% { transform: scale(1);    opacity: 1; }
 }
+.animate-pop { animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
 
-.animate-pop {
-    animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Físicas del Confeti */
+/* ─── CONFETTI ────────────────────────────────────── */
 .confeti {
     position: fixed;
-    top: -10px;
-    width: 12px;
-    height: 12px;
+    top: -14px;
+    width: 10px; height: 10px;
     border-radius: 3px;
     z-index: 9999;
     pointer-events: none;
     animation: caida-confeti linear forwards;
 }
-
 @keyframes caida-confeti {
-    to { transform: translateY(110vh) rotate(720deg); opacity: 0; }
+    0%   { transform: rotate(0deg)   translateY(0); opacity: 1; }
+    80%  { opacity: 1; }
+    100% { transform: rotate(540deg) translateY(110vh); opacity: 0; }
 }
 
-/* Físicas de la Chispa Táctil */
+/* ─── CHISPA TÁCTIL ──────────────────────────────── */
 .chispa-tactil {
-    position: absolute;
-    font-size: 2rem;
+    position: fixed;
+    font-size: 1.8rem;
     pointer-events: none;
     z-index: 9999;
-    animation: flotar-chispa 0.6s ease-out forwards;
+    animation: flotar-chispa 0.65s ease-out forwards;
 }
-
 @keyframes flotar-chispa {
-    0% { transform: scale(0.5) translateY(0); opacity: 1; }
-    100% { transform: scale(1.5) translateY(-30px); opacity: 0; }
+    0%   { transform: scale(0.4) translateY(0); opacity: 1; }
+    60%  { transform: scale(1.3) translateY(-20px); opacity: 0.8; }
+    100% { transform: scale(1.6) translateY(-38px); opacity: 0; }
 }
 
-/* css/animations.css - Motor de Vida Automático */
-
-/* Hace que cualquier imagen 3D parezca que está flotando y respirando */
+/* ─── FLOTACIÓN DE IMÁGENES ──────────────────────── */
 .img-viva {
     animation: flotar-respirar 4s ease-in-out infinite;
     transform-origin: bottom center;
 }
-
-/* Le damos un retraso aleatorio a algunas para que no se muevan todas igual */
-.img-viva:nth-child(even) {
-    animation-delay: 1s;
-    animation-duration: 5s;
-}
+.img-viva:nth-child(even)  { animation-delay: 1.2s; animation-duration: 5s; }
+.img-viva:nth-child(3n)    { animation-delay: 0.6s; animation-duration: 4.5s; }
 
 @keyframes flotar-respirar {
-    0%, 100% { 
-        transform: translateY(0) scale(1); 
-        filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.15));
+    0%, 100% {
+        transform: translateY(0) scale(1);
+        filter: drop-shadow(0 10px 10px rgba(0,0,0,0.13));
     }
-    50% { 
-        transform: translateY(-8px) scale(1.02); 
-        filter: drop-shadow(0px 18px 12px rgba(0,0,0,0.1));
+    50% {
+        transform: translateY(-8px) scale(1.02);
+        filter: drop-shadow(0 18px 12px rgba(0,0,0,0.08));
+    }
+}
+
+/* ─── RESPIRAR (iconos menú) ─────────────────────── */
+@keyframes respirar {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50%       { transform: scale(1.06) translateY(-7px); }
+}
+
+/* ─── FADE-NIVEL (transición entre niveles) ──────── */
+@keyframes fade-nivel-in {
+    from { opacity: 0; transform: scale(0.97) translateY(6px); }
+    to   { opacity: 1; transform: scale(1)    translateY(0); }
+}
+.fade-nivel-in { animation: fade-nivel-in 0.22s ease-out forwards; }
+
+/* ─── ESTRELLA GANADA ────────────────────────────── */
+@keyframes estrella-pop {
+    0%   { transform: scale(0) rotate(-30deg); opacity: 0; }
+    60%  { transform: scale(1.3) rotate(8deg); opacity: 1; }
+    100% { transform: scale(1)   rotate(0deg); opacity: 1; }
+}
+.estrella-victoria.ganada {
+    animation: estrella-pop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+.estrella-victoria:nth-child(2) { animation-delay: 0.12s; }
+.estrella-victoria:nth-child(3) { animation-delay: 0.24s; }
+
+/* ─── PULSO EN BARRA DE PROGRESO ─────────────────── */
+@keyframes prog-pulse {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0.7; }
+}
+
+/* ─── ENTRADA DE TARJETAS DEL MENÚ ──────────────── */
+.game-card { animation: pop-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) both; }
+.game-card:nth-child(1)  { animation-delay: 0.04s; }
+.game-card:nth-child(2)  { animation-delay: 0.08s; }
+.game-card:nth-child(3)  { animation-delay: 0.12s; }
+.game-card:nth-child(4)  { animation-delay: 0.16s; }
+.game-card:nth-child(5)  { animation-delay: 0.20s; }
+.game-card:nth-child(6)  { animation-delay: 0.24s; }
+.game-card:nth-child(7)  { animation-delay: 0.28s; }
+.game-card:nth-child(8)  { animation-delay: 0.32s; }
+
+/* ─── ACCESIBILIDAD: Reduced Motion ─────────────── */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
     }
 }

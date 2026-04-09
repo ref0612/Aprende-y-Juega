@@ -2,58 +2,110 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Aprende y Juega | Plataforma Educativa</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#4FC3F7">
+    <title>Aprende y Juega ✨</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" href="assets/favicon.ico" sizes="any">
+    <link rel="icon" href="assets/icon-192.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="assets/icon-192.svg">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/variables.css">
     <link rel="stylesheet" href="css/main-style.css">
     <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-    <header class="main-header">
-        <h1>✨ Aprende y Juega ✨</h1>
-        <div id="stats-bar" class="hidden">
-            <span id="score-display">Puntos: 0</span>
-            <div id="lives-display"></div>
+
+<section id="bienvenida" class="hidden">
+    <div class="bienvenida-box animate-pop">
+        <div class="bienvenida-logo">✨</div>
+        <h1 class="bienvenida-titulo">¡Aprende y Juega!</h1>
+        <p class="bienvenida-sub">¿Cuántos años tienes?</p>
+        <div class="bienvenida-edades">
+            <button class="btn-bienvenida-edad" data-edad="bebes">
+                <span class="be-emoji">🍼</span>
+                <span class="be-label">Bebés</span>
+                <span class="be-rango">1 – 2 años</span>
+            </button>
+            <button class="btn-bienvenida-edad" data-edad="pequenos">
+                <span class="be-emoji">⭐</span>
+                <span class="be-label">Pequeños</span>
+                <span class="be-rango">3 – 4 años</span>
+            </button>
+            <button class="btn-bienvenida-edad" data-edad="grandes">
+                <span class="be-emoji">🚀</span>
+                <span class="be-label">Grandes</span>
+                <span class="be-rango">4 – 5 años</span>
+            </button>
         </div>
-    </header>
+    </div>
+</section>
 
-    <main id="app-container">
-        <section id="menu-principal" class="game-grid">
-            <div class="game-card" data-module="animales">
-                <div class="card-icon">🐶</div>
-                <h3>Mundo Animal</h3>
-                <p>Identificar y Arrastrar</p>
-            </div>
-            <div class="game-card" data-module="cuerpo" style="background-color: #BBDEFB;">
-                <span style="font-size: 5rem;">🧒</span>
-                <h3>Mi Cuerpo</h3>
-                <p>Anatomía Básica</p>
-            </div>
-            <div class="game-card" data-module="colores_formas" style="background-color: #E1BEE7;">
-                <span style="font-size: 5rem;">🔴</span>
-                <h3>Colores y Formas</h3>
-            </div>
-            <div class="game-card" data-module="emociones" style="background-color: #FFCDD2;">
-                <span style="font-size: 5rem;">😊</span>
-                <h3>Emociones</h3>
-            </div>
-            <div class="game-card" data-module="math" style="background-color: #FFF9C4;">
-                <span style="font-size: 5rem;">🔢</span>
-                <h3>Matemáticas</h3>
-            </div>
-            <div class="game-card" data-module="vehiculos" style="background-color: #FFECB3;">
-                <span style="font-size: 5rem;">🚀</span>
-                <h3>Transportes</h3>
-            </div>
-        </section>
+<header class="main-header" id="main-header">
+    <div class="header-inner">
+        <h1 class="header-titulo">✨ Aprende y Juega ✨</h1>
+        <div class="header-meta">
+            <span id="total-estrellas" class="total-estrellas">⭐ 0</span>
+            <button id="btn-edad-actual" class="btn-edad-pill">⭐ Pequeños</button>
+        </div>
+    </div>
+</header>
 
-        <section id="game-canvas" class="hidden">
-            <button id="btn-back" style="margin-bottom: 20px; padding: 10px 20px; font-size: 1.2rem; border-radius: 10px; cursor: pointer; border: none; background: #eee; font-weight: bold; color: #555;">⬅ Volver al Menú</button>
-            <div id="game-content"></div>
-        </section>
-    </main>
+<div id="stats-bar" class="hidden">
+    <span id="score-display">⭐ 0</span>
+    <div class="prog-container">
+        <div class="prog-track"><div id="prog-bar-fill" class="prog-bar-fill"></div></div>
+        <span id="prog-text" class="prog-text">1/10</span>
+    </div>
+    <div id="lives-display">❤️❤️❤️</div>
+</div>
 
-    <script type="module" src="./js/main.js"></script>
+<main id="app-container">
+    <section id="menu-principal" class="game-grid">
+
+        <div class="game-card" data-module="animales"       style="background-color:#FFECB3;">
+            <div class="card-icon">🐶</div><h3>Animales</h3><p>Identifica y arrastra</p>
+        </div>
+        <div class="game-card" data-module="cuerpo"         style="background-color:#BBDEFB;">
+            <div class="card-icon">🧒</div><h3>Mi Cuerpo</h3><p>Anatomía básica</p>
+        </div>
+        <div class="game-card" data-module="emociones"      style="background-color:#FFCDD2;">
+            <div class="card-icon">😊</div><h3>Emociones</h3><p>Caras y sentimientos</p>
+        </div>
+        <div class="game-card" data-module="colores_formas" style="background-color:#E1BEE7;">
+            <div class="card-icon">🔷</div><h3>Colores y Formas</h3><p>100 combinaciones</p>
+        </div>
+        <div class="game-card" data-module="opuestos"       style="background-color:#C8E6C9;">
+            <div class="card-icon">↔️</div><h3>Opuestos</h3><p>Grande / pequeño…</p>
+        </div>
+        <div class="game-card" data-module="frutas"         style="background-color:#DCEDC8;">
+            <div class="card-icon">🍎</div><h3>Frutas y Verduras</h3><p>Reconoce y clasifica</p>
+        </div>
+        <div class="game-card" data-module="math"           style="background-color:#FFF9C4;">
+            <div class="card-icon">🔢</div><h3>Matemáticas</h3><p>Conteo y números</p>
+        </div>
+        <div class="game-card" data-module="abecedario"     style="background-color:#B2EBF2;">
+            <div class="card-icon">🔤</div><h3>Abecedario</h3><p>Letras A – Z</p>
+        </div>
+        <div class="game-card" data-module="vehiculos"      style="background-color:#FFE0B2;">
+            <div class="card-icon">🚀</div><h3>Transportes</h3><p>Tierra, mar y aire</p>
+        </div>
+        <div class="game-card" data-module="higiene"        style="background-color:#E1F5FE;">
+            <div class="card-icon">🧼</div><h3>Higiene</h3><p>¡Estar limpitos!</p>
+        </div>
+
+    </section>
+
+    <section id="game-canvas" class="hidden">
+        <div id="game-header-bar">
+            <button id="btn-back">⬅ Menú</button>
+            <span id="module-title"></span>
+        </div>
+        <div id="game-content"></div>
+    </section>
+</main>
+
+<script type="module" src="./js/main.js"></script>
 </body>
 </html>
