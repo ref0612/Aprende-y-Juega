@@ -104,13 +104,35 @@ body {
     animation: pop-in 0.5s ease-out;
 }
 
-/* Adaptación para pantallas pequeñas (Celulares) */
+/* Adaptación para pantallas pequeñas (Celulares) - VERSIÓN SIN SCROLL */
 @media (max-width: 600px) {
-    .game-grid { gap: 15px; padding: 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
-    .game-card { padding: 20px 10px; border-radius: 25px; }
-    .card-icon, .emoji-grande { font-size: 4rem; }
-    .game-card h3 { font-size: 1.3rem; }
-    .instruccion-titulo { font-size: 1.8rem; }
+    .main-header { padding: 10px; }
+    .game-grid { gap: 10px; padding: 5px; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); }
+    .game-card { padding: 15px 10px; border-radius: 20px; }
+    
+    .card-icon, .emoji-grande { font-size: 3.5rem; }
+    .game-card h3 { font-size: 1.2rem; }
+    
+    /* El título de la instrucción más pegado arriba */
+    .instruccion-titulo { font-size: 1.5rem; margin-top: 0; margin-bottom: 10px; }
+
+    /* Botón volver ultra compacto y centrado */
+    #btn-back {
+        font-size: 1rem;
+        padding: 8px 15px;
+        margin: 0 auto 15px auto;
+        display: block;
+        width: fit-content;
+    }
+
+    /* Achicamos un poco los renders 3D para que entren las 4 opciones */
+    .wrapper-render img { width: 95px !important; height: 95px !important; }
+    
+    /* Ajustes específicos para el destino del juego de Arrastre */
+    .grafico-destino { width: 140px !important; }
+    
+    /* Ajuste para el juego de Memoria */
+    .memoria-front { font-size: 2.5rem; }
 }
 
 /* =========================================

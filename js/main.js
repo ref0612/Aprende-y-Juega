@@ -25,6 +25,9 @@ class AppController {
         this.gameContent = document.getElementById('game-content');
         this.btnBack = document.getElementById('btn-back');
         
+        // 👇 AGREGAMOS ESTA LÍNEA para controlar el título
+        this.tituloPrincipal = document.querySelector('.main-header h1'); 
+        
         this.nivelesActuales = [];
         this.indiceNivel = 0;
 
@@ -49,6 +52,10 @@ class AppController {
         if (this.mundosData[moduleName]) {
             this.menu.classList.add('hidden');
             this.canvas.classList.remove('hidden');
+            
+            // 👇 OCULTAMOS EL TÍTULO AL JUGAR para dar más espacio
+            if(this.tituloPrincipal) this.tituloPrincipal.classList.add('hidden');
+
             this.nivelesActuales = this.mundosData[moduleName];
             this.indiceNivel = 0;
             this.cargarSiguienteNivel();
@@ -103,6 +110,9 @@ class AppController {
         this.canvas.classList.add('hidden');
         this.menu.classList.remove('hidden');
         this.gameContent.innerHTML = '';
+        
+        // 👇 MOSTRAMOS EL TÍTULO DE NUEVO AL VOLVER AL MENÚ
+        if(this.tituloPrincipal) this.tituloPrincipal.classList.remove('hidden');
     }
 }
 
