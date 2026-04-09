@@ -225,13 +225,20 @@ class AppController {
 
     _actualizarProgreso() {
         const total = this.nivelesActuales.length;
-        const pct   = Math.round((this.indiceNivel / total) * 100);
+        // FIX: Sumamos 1 para que el Nivel 1 ya tenga un poquito de verde y sea proporcional
+        const pct   = Math.round(((this.indiceNivel + 1) / total) * 100);
         if (this.elProgFill) this.elProgFill.style.width = pct + '%';
-        if (this.elProgText) this.elProgText.textContent = `${this.indiceNivel+1}/${total}`;
+        if (this.elProgText) this.elProgText.textContent = `${this.indiceNivel + 1}/${total}`;
     }
 
     _regresarAlMenu() {
         this.juegoActivo = false; // <--- EL ESCUDO: Apagamos el motor
+        // FIX: Guardar el esfuerzo del niño si sale a la mitad del juego (Guardado parcial)
+        if (this.indiceNivel > 0) {
+            Progreso.guardarModulo(this.moduloActual, GameEngine.score, this.nivelesActuales.length);
+            this._actualizarEstrellas();
+        }
+
         this.elCanvas.classList.add('hidden');
         this.elStatsBar.classList.add('hidden');
         this.elHeader.classList.remove('hidden');

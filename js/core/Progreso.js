@@ -40,9 +40,11 @@ export const Progreso = {
         m.jugado++;
         m.mejor = Math.max(m.mejor, score);
 
-        // Cálculo de estrellas: 1=completado, 2=buen score, 3=excelente
+        // FIX: Aseguramos que nunca se pierdan las estrellas máximas que ya había ganado
         const porcentaje = score / (totalNiveles * 10);
-        m.estrellas = porcentaje >= 0.85 ? 3 : porcentaje >= 0.5 ? 2 : 1;
+        const nuevasEstrellas = porcentaje >= 0.85 ? 3 : porcentaje >= 0.5 ? 2 : porcentaje > 0 ? 1 : 0;
+        
+        m.estrellas = Math.max(m.estrellas, nuevasEstrellas); // Mantiene el récord más alto
 
         d.totalEstrellas = Object.values(d.modulos).reduce((sum, mod) => sum + mod.estrellas, 0);
         d.ultimoModulo = modName;

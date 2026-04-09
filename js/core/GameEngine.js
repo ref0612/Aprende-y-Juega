@@ -51,7 +51,8 @@ export default class GameEngine {
     static _refreshUI() {
         const scoreEl = document.getElementById('score-display');
         const livesEl = document.getElementById('lives-display');
-        if (scoreEl) scoreEl.textContent = `⭐ ${GameEngine.score}`;
+        // FIX: Cambiamos la ⭐ por una 🪙 para el puntaje del nivel en curso
+        if (scoreEl) scoreEl.textContent = `🪙 ${GameEngine.score}`;
         if (livesEl) livesEl.innerHTML = '❤️'.repeat(GameEngine.lives) + '🖤'.repeat(Math.max(0, 3 - GameEngine.lives));
     }
 
