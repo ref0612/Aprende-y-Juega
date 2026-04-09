@@ -1,0 +1,21 @@
+/* css/variables.css */
+:root {
+    /* Paleta vibrante tipo Fisher-Price / Lingokids */
+    --bg-app: #e0f7fa; 
+    
+    /* Colores UI */
+    --success-color: #8BC34A;
+    --error-color: #FF5252;
+    
+    /* Colores del Menú Principal */
+    --color-math: #4fc3f7;
+    --color-emociones: #ffd54f;
+    --color-higiene: #81c784;
+    --color-animales: #ff8a65;
+    --color-cuerpo: #BBDEFB;
+
+    /* Fuentes */
+    --font-kids: 'Quicksand', 'Comic Sans MS', sans-serif;
+    --text-dark: #2c3e50;
+    --text-light: #ffffff;
+}

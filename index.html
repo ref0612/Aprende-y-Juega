@@ -2,53 +2,58 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Juego Infantil Premium</title>
-    <link rel="manifest" href="manifest.json">
-    <link rel="stylesheet" href="css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aprende y Juega | Plataforma Educativa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/variables.css">
+    <link rel="stylesheet" href="css/main-style.css">
+    <link rel="stylesheet" href="css/animations.css">
 </head>
 <body>
-    <div class="nube nube1">☁️</div>
-    <div class="nube nube2">☁️</div>
-
-    <div id="pantalla-inicio" class="pantalla-completa">
-        <h1 class="titulo-animado">¡Aprende y Juega!</h1>
-        <button id="boton-empezar" class="boton-3d boton-jugar">▶️ JUGAR</button>
-    </div>
-
-    <div id="pantalla-mundos" class="pantalla-completa" style="display: none;">
-        <button id="btn-padres-menu" class="btn-esquina">⚙️</button>
-        <h1 class="titulo-animado" style="margin-bottom: 30px;">Elige un Mundo</h1>
-        <div class="contenedor-mundos">
-            <button class="boton-mundo" onclick="iniciarMundo('animales')" style="background-color: #FF9800;">🐶 Animales</button>
-            <button class="boton-mundo" onclick="iniciarMundo('colores')" style="background-color: #E91E63;">🔴 Colores</button>
-            <button class="boton-mundo" onclick="iniciarMundo('formas')" style="background-color: #00BCD4;">⭐ Formas</button>
+    <header class="main-header">
+        <h1>✨ Aprende y Juega ✨</h1>
+        <div id="stats-bar" class="hidden">
+            <span id="score-display">Puntos: 0</span>
+            <div id="lives-display"></div>
         </div>
-    </div>
+    </header>
 
-    <div id="pantalla-juego" style="display: none;">
-        <header id="ui-superior">
-            <button id="btn-volver" style="background:none; border:none; font-size:2rem; cursor:pointer;">🏠</button>
-            <div id="estrellas">⭐ <span id="contador-estrellas">0</span></div>
-            <div id="nivel-actual">Nivel <span id="texto-nivel">1</span></div>
-        </header>
+    <main id="app-container">
+        <section id="menu-principal" class="game-grid">
+            <div class="game-card" data-module="animales">
+                <div class="card-icon">🐶</div>
+                <h3>Mundo Animal</h3>
+                <p>Identificar y Arrastrar</p>
+            </div>
+            <div class="game-card" data-module="cuerpo" style="background-color: #BBDEFB;">
+                <span style="font-size: 5rem;">🧒</span>
+                <h3>Mi Cuerpo</h3>
+                <p>Anatomía Básica</p>
+            </div>
+            <div class="game-card" data-module="colores_formas" style="background-color: #E1BEE7;">
+                <span style="font-size: 5rem;">🔴</span>
+                <h3>Colores y Formas</h3>
+            </div>
+            <div class="game-card" data-module="emociones" style="background-color: #FFCDD2;">
+                <span style="font-size: 5rem;">😊</span>
+                <h3>Emociones</h3>
+            </div>
+            <div class="game-card" data-module="math" style="background-color: #FFF9C4;">
+                <span style="font-size: 5rem;">🔢</span>
+                <h3>Matemáticas</h3>
+            </div>
+            <div class="game-card" data-module="vehiculos" style="background-color: #FFECB3;">
+                <span style="font-size: 5rem;">🚀</span>
+                <h3>Transportes</h3>
+            </div>
+        </section>
 
-        <main id="area-juego">
-            <h1 id="instruccion">Cargando...</h1>
-            <div id="contenedor-opciones"></div> 
-        </main>
-    </div>
+        <section id="game-canvas" class="hidden">
+            <button id="btn-back" style="margin-bottom: 20px; padding: 10px 20px; font-size: 1.2rem; border-radius: 10px; cursor: pointer; border: none; background: #eee; font-weight: bold; color: #555;">⬅ Volver al Menú</button>
+            <div id="game-content"></div>
+        </section>
+    </main>
 
-    <div id="modal-padres" style="display:none;" class="modal-overlay">
-        <div class="modal-contenido">
-            <h2>👨‍👩‍👧 Panel para Padres</h2>
-            <p>Estrellas ganadas: <b><span id="stats-estrellas">0</span> ⭐</b></p>
-            <p>Tiempo de uso: <b><span id="stats-tiempo">0</span> min</b></p>
-            <button onclick="document.getElementById('modal-padres').style.display='none'" class="boton-3d boton-error">Cerrar</button>
-        </div>
-    </div>
-
-    <script src="js/niveles.js"></script>
-    <script src="js/motor.js"></script>
+    <script type="module" src="./js/main.js"></script>
 </body>
 </html>

@@ -1,0 +1,179 @@
+/* css/main-style.css */
+body {
+    background-color: var(--bg-app);
+    background-image: radial-gradient(circle at 50% 50%, #ffffff 20%, transparent 20%), 
+                      radial-gradient(circle at 100% 100%, #ffffff 20%, transparent 20%);
+    background-size: 100px 100px;
+    background-position: 0 0, 50px 50px;
+    font-family: var(--font-kids);
+    margin: 0;
+    color: var(--text-dark);
+    overflow-x: hidden;
+    user-select: none; /* Evita que los niños seleccionen texto por error */
+    -webkit-tap-highlight-color: transparent; /* Quita el cuadro azul en celulares */
+}
+
+.main-header {
+    text-align: center;
+    padding: 1.5rem;
+    font-size: 1.8rem;
+    color: var(--error-color);
+    text-shadow: 2px 2px 0px #fff, 4px 4px 0px rgba(0,0,0,0.1);
+    animation: pop-in 0.8s ease-out;
+}
+
+/* Contenedor Grid Principal */
+.game-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 30px;
+    padding: 20px 40px;
+    max-width: 1000px;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+/* 🌟 LA TARJETA 3D INTELIGENTE 🌟 */
+.game-card {
+    border-radius: 35px;
+    text-align: center;
+    padding: 30px 20px;
+    cursor: pointer;
+    border: 5px solid rgba(255, 255, 255, 0.6);
+    /* Esta sombra funciona en CUALQUIER color de fondo */
+    box-shadow: inset 0 -10px 0 rgba(0,0,0,0.15), 0 15px 15px rgba(0,0,0,0.1);
+    transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Efecto al aplastar el juguete */
+.game-card:active, .game-card:hover {
+    top: 8px; /* Se hunde */
+    box-shadow: inset 0 -2px 0 rgba(0,0,0,0.15), 0 5px 5px rgba(0,0,0,0.1) !important;
+    filter: brightness(1.05);
+}
+
+/* Títulos y textos */
+.game-card h3 { font-size: 1.8rem; margin: 10px 0 5px; font-weight: 900; }
+.game-card p { font-size: 1.1rem; margin: 0; opacity: 0.8; font-weight: bold; }
+
+/* Íconos grandes y vivos */
+.card-icon, .emoji-grande {
+    font-size: 6rem; 
+    display: inline-block;
+    filter: drop-shadow(0px 10px 5px rgba(0,0,0,0.2));
+    animation: respirar 3s ease-in-out infinite;
+}
+
+@keyframes respirar {
+    0%, 100% { transform: scale(1) translateY(0); }
+    50% { transform: scale(1.05) translateY(-8px); }
+}
+
+.hidden { display: none !important; }
+
+/* Botón Volver */
+#btn-back {
+    background: #ff5252;
+    color: white;
+    font-size: 1.3rem;
+    font-weight: bold;
+    border: none;
+    border-radius: 20px;
+    padding: 12px 25px;
+    box-shadow: inset 0 -5px 0 rgba(0,0,0,0.2), 0 8px 10px rgba(0,0,0,0.1);
+    cursor: pointer;
+    margin: 20px;
+    transition: all 0.2s;
+}
+#btn-back:active {
+    transform: translateY(5px);
+    box-shadow: inset 0 -1px 0 rgba(0,0,0,0.2), 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Utilidades para los juegos */
+.instruccion-titulo {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin-bottom: 10px;
+    animation: pop-in 0.5s ease-out;
+}
+
+/* Adaptación para pantallas pequeñas (Celulares) */
+@media (max-width: 600px) {
+    .game-grid { gap: 15px; padding: 10px; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+    .game-card { padding: 20px 10px; border-radius: 25px; }
+    .card-icon, .emoji-grande { font-size: 4rem; }
+    .game-card h3 { font-size: 1.3rem; }
+    .instruccion-titulo { font-size: 1.8rem; }
+}
+
+/* =========================================
+   🧩 MOTOR DE JUEGO DE MEMORIA (3D)
+========================================= */
+.memoria-grid {
+    display: grid;
+    /* Forzamos 4 columnas para que las 8 cartas queden en un rectángulo perfecto de 4x2 */
+    grid-template-columns: repeat(4, 1fr);
+    gap: 15px;
+    max-width: 600px;
+    margin: 20px auto;
+    perspective: 1000px; /* Le da profundidad a la cámara 3D */
+    padding: 10px;
+}
+
+.memoria-card {
+    aspect-ratio: 1 / 1; /* Cartas siempre cuadradas */
+    cursor: pointer;
+    position: relative;
+}
+
+.memoria-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    transition: transform 0.6s cubic-bezier(0.4, 0.2, 0.2, 1);
+    transform-style: preserve-3d; /* Permite que los hijos tengan 3D */
+}
+
+/* Cuando se le agrega la clase desde JS, rota el contenedor interno */
+.memoria-card.volteada .memoria-inner {
+    transform: rotateY(180deg);
+}
+
+.memoria-front, .memoria-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la parte trasera cuando se gira */
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.15);
+    border: 4px solid rgba(255, 255, 255, 0.8);
+}
+
+.memoria-front {
+    background-color: #ffffff;
+    font-size: 3.5rem;
+    color: #ff5252;
+}
+
+.memoria-back {
+    transform: rotateY(180deg); /* El reverso empieza invertido */
+}
+
+/* Ajuste compacto para celulares */
+@media (max-width: 500px) {
+    .memoria-grid {
+        gap: 10px;
+    }
+    .memoria-front { font-size: 2.5rem; }
+}
