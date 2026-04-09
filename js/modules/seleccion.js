@@ -27,16 +27,17 @@ export default class SeleccionGame extends GameEngine {
 
             if (opcion.img) {
                 tarjeta.innerHTML = `
-                    <div class="wrapper-render">
+                    <div class="wrapper-render" style="width: 100%; height: 100%; display: flex; justify-content: center; align-items: center;">
                         <img src="${opcion.img}" 
+                             class="img-viva" 
                              alt="${opcion.nombre || 'imagen'}" 
-                             style="width: 130px; height: 130px; object-fit: contain; filter: drop-shadow(0px 10px 10px rgba(0,0,0,0.15)); animation: respirar 3s ease-in-out infinite;" 
+                             style="width: 120px; height: 120px; object-fit: contain;" 
                              loading="lazy"
                              onerror="this.style.display='none'; this.parentElement.innerHTML='<span style=&quot;font-size: 5rem;&quot;>✨</span>';">
                     </div>
                 `;
             } else {
-                tarjeta.innerHTML = `<span class="emoji-grande">${opcion.emoji || '❓'}</span>`;
+                tarjeta.innerHTML = `<span class="emoji-grande img-viva">${opcion.emoji || '❓'}</span>`;
             }
 
             tarjeta.onclick = () => this.verificarSeleccion(opcion, tarjeta);
