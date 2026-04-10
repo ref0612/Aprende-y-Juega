@@ -71,16 +71,25 @@ export default class GameEngine {
     hablar(texto) {
         if (!('speechSynthesis' in window)) return;
         window.speechSynthesis.cancel();
+        
         const locutor = new SpeechSynthesisUtterance(texto);
-        locutor.rate  = 0.88;
-        locutor.pitch = 1.25;
+        locutor.rate  = 0.9;  // Un poquito más lento para que vocalice mejor
+        locutor.pitch = 1.3;  // Tono agudo y amigable para niños
+        
         if (this.vocesDisponibles.length === 0) {
             this.vocesDisponibles = window.speechSynthesis.getVoices();
         }
-        const vozIdeal =
-            this.vocesDisponibles.find(v => v.lang === 'es-CL') ||
-            this.vocesDisponibles.find(v => v.lang.startsWith('es-MX') || v.name.includes('Paulina')) ||
+        
+        // Búsqueda inteligente de la mejor voz:
+        const vozIdeal = 
+            // 1. Priorizamos las voces de Google (son neuronales y suenan muy humanas)
+            this.vocesDisponibles.find(v => v.name.includes('Google') && v.lang.startsWith('es')) ||
+            // 2. Si no hay Google, buscamos las premium de iOS/Mac (Mónica, Paulina)
+            this.vocesDisponibles.find(v => v.name.includes('Paulina') || v.name.includes('Monica')) ||
+            // 3. Fallback a cualquier voz en español latino o España
+            this.vocesDisponibles.find(v => v.lang.startsWith('es-') && !v.lang.includes('ES')) ||
             this.vocesDisponibles.find(v => v.lang.startsWith('es'));
+            
         if (vozIdeal) locutor.voice = vozIdeal;
         window.speechSynthesis.speak(locutor);
     }

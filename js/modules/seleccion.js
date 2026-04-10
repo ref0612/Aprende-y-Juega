@@ -52,14 +52,20 @@ export default class SeleccionGame extends GameEngine {
         if (opcion.esCorrecto) {
             this.renderFeedback(true, elementoBoton);
             
+            let tiempoEspera = 1800; // Tiempo base
+
             // Lógica inteligente: Si tiene descripción, es del cuerpo y la leemos
             if (opcion.descripcion && opcion.articulo) {
-                this.hablar(`¡Muy bien! ¡Usamos ${opcion.articulo} ${opcion.nombre} ${opcion.descripcion}!`);
+                const texto = `¡Muy bien! ¡Usamos ${opcion.articulo} ${opcion.nombre} ${opcion.descripcion}!`;
+                this.hablar(texto);
+                // FIX: Calculamos el tiempo dinámicamente según lo larga que sea la frase (aprox 80ms por letra)
+                tiempoEspera = Math.max(2500, texto.length * 80);
             } else {
                 this.hablar("¡Muy bien! ¡Lo lograste!");
+                tiempoEspera = 2000;
             }
 
-            setTimeout(() => this.onWin(), 1800);
+            setTimeout(() => this.onWin(), tiempoEspera);
         } else {
             this.renderFeedback(false, elementoBoton);
             this.hablar("¡Casi! Intenta otra vez.");

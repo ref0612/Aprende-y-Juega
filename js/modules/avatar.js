@@ -255,8 +255,13 @@ export default class AvatarGame extends GameEngine {
             this.lanzarConfeti();
             GameEngine.addScore(10);
             el.classList.add('parte-ok');
-            this.hablar(`¡Muy bien! Eso es ${this.datosNivel.pieza.articulo} ${this.datosNivel.pieza.nombre}.`);
-            setTimeout(() => this.onWin(), 2200);
+            
+            // FIX: Tiempo dinámico para el avatar
+            const textoFeliz = `¡Muy bien! Eso es ${this.datosNivel.pieza.articulo} ${this.datosNivel.pieza.nombre}.`;
+            this.hablar(textoFeliz);
+            const tiempoEspera = Math.max(2200, textoFeliz.length * 80);
+            
+            setTimeout(() => this.onWin(), tiempoEspera);
         } else {
             this.reproducirSonido(this.SOUNDS.ERROR);
             GameEngine.loseLife();

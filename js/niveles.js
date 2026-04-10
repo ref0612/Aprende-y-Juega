@@ -621,30 +621,58 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
     // ── RESTO (animales, cuerpo, vehiculos) ───────────────────────────────────
     if (!diccionarios[categoria]) return [];
 
-    const poolOriginal  = [...diccionarios[categoria]];
+    const poolOriginal   = [...diccionarios[categoria]];
     let   poolDisponible = [...poolOriginal];
     
-    // RECUPERAMOS LAS VARIABLES QUE FALTABAN
     const partesCara     = ['ojo','oreja','nariz','boca'];
-    const partesEnAvatar = ['ojo','oreja','nariz','boca','mano','pie','cabeza','pelo']; // Añadimos 'pelo'
-    const ordenMotores   = cfg.motores;
+    // Añadimos 'pelo' para arreglar tu problema anterior
+    const partesEnAvatar = ['ojo','oreja','nariz','boca','mano','pie','cabeza','pelo']; 
+
+    // FIX MÁGICO: Configuración especial de motores solo para "Mi Cuerpo"
+    let ordenMotores = [...cfg.motores];
+    if (categoria === 'cuerpo') {
+        // Obligamos a que el Avatar aparezca constantemente
+        ordenMotores = edad === 'bebes' 
+            ? ['identificar_avatar', 'seleccion'] 
+            : ['identificar_avatar', 'seleccion', 'memoria'];
+    }
 
     for (let i = 0; i < cantidadTotal; i++) {
         if (poolDisponible.length === 0) poolDisponible = [...poolOriginal];
 
-        const idx      = Math.floor(Math.random() * poolDisponible.length);
-        const correcto = poolDisponible.splice(idx, 1)[0];
+        let tipoMotor = ordenMotores[i % ordenMotores.length];
+
+        // LÓGICA INTELIGENTE: Filtramos el diccionario ANTES de elegir
+        let opcionesValidas = poolDisponible;
+        
+        // Si el juego es Avatar, SOLO podemos elegir partes que estén dibujadas
+        if (categoria === 'cuerpo' && tipoMotor === 'identificar_avatar') {
+            opcionesValidas = poolDisponible.filter(item => partesEnAvatar.includes(item.id));
+            
+            // Si nos quedamos sin partes dibujadas (porque ya jugamos mucho), recargamos la lista
+            if (opcionesValidas.length === 0) {
+                poolDisponible = [...poolOriginal];
+                opcionesValidas = poolDisponible.filter(item => partesEnAvatar.includes(item.id));
+            }
+        }
+
+        // Si por alguna razón el filtro falla, usamos la lista completa como red de seguridad
+        if (opcionesValidas.length === 0) opcionesValidas = [...poolOriginal];
+
+        const idx      = Math.floor(Math.random() * opcionesValidas.length);
+        const correcto = opcionesValidas[idx];
+
+        // Remover el elemento elegido del pool general
+        const indexReal = poolDisponible.findIndex(item => item.id === correcto.id);
+        if (indexReal !== -1) poolDisponible.splice(indexReal, 1);
+
         const distractores = poolOriginal
             .filter(item => item.id !== correcto.id)
             .sort(()=>0.5-Math.random()).slice(0, cfg.distractores);
 
-        let tipoMotor = ordenMotores[i % ordenMotores.length];
-
-        // FIX: Forzamos el motor a 'seleccion' si la parte NO está en el SVG del niño
-        if (categoria === 'cuerpo') {
-             if (tipoMotor === 'arrastre' || tipoMotor === 'identificar_avatar') {
-                 tipoMotor = partesEnAvatar.includes(correcto.id) ? 'identificar_avatar' : 'seleccion';
-             }
+        // Si es de otra categoría y el motor es arrastre, lo mantenemos normal
+        if (categoria !== 'cuerpo' && tipoMotor === 'identificar_avatar') {
+            tipoMotor = 'arrastre'; 
         }
 
         let nivel = {nivel:i+1, tipo_motor:tipoMotor};
