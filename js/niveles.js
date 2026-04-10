@@ -11,10 +11,10 @@ function _svgForma(forma, hex) {
         case 'rectangulo': shape = `<rect x="4" y="22" width="92" height="56" rx="7" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
         case 'rombo':      shape = `<polygon points="50,4 96,50 50,96 4,50" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
         case 'estrella':   shape = `<polygon points="50,5 61,35 93,35 68,56 78,90 50,69 22,90 32,56 7,35 39,35" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
-        case 'corazon':    shape = `<path d="M50,82 C10,62 5,32 50,14 C95,32 90,62 50,82Z" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
+        case 'corazon':    shape = `<path d="M50,88 C15,65 5,40 5,25 C5,10 25,5 50,25 C75,5 95,10 95,25 C95,40 85,65 50,88 Z" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
         case 'ovalo':      shape = `<ellipse cx="50" cy="50" rx="44" ry="28" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
         case 'hexagono':   shape = `<polygon points="50,6 91,28 91,72 50,94 9,72 9,28" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
-        case 'luna':       shape = `<path d="M65,10 A38,38,0,1,0,65,90 A26,26,0,1,1,65,10Z" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
+        case 'luna':       shape = `<path d="M55,10 A40,40 0 1,0 55,90 A50,50 0 0,1 55,10 Z" fill="${hex}" stroke="${s}" stroke-width="2"/>`; break;
     }
     const svg = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">${shape}</svg>`;
     return `data:image/svg+xml,${encodeURIComponent(svg)}`;
@@ -595,18 +595,22 @@ export function generarNiveles(categoria, cantidadTotal, edad = 'pequenos') {
             const correcto = shuffled[poolIdx % shuffled.length];
             poolIdx++;
 
-            // ← AQUÍ ESTÁ EL FIX PEDAGÓGICO
             const distractores = _distractor_colores_formas(correcto, pool, cfg.distractores);
             if (distractores.length === 0) continue; // safety
 
             let tipoMotor = ordenMotores[i % ordenMotores.length];
-            
             // arrastre no tiene sentido para colores_formas (sin destino), usar selección
             if (tipoMotor === 'arrastre') tipoMotor = 'seleccion';
 
+            // FIX: Lógica dura para forzar el texto correcto
+            let textoInstruccion = `¡Toca ${correcto.articulo} ${correcto.nombre}!`;
+            if (tipoMotor === 'memoria') {
+                textoInstruccion = '¡Encuentra las parejas!';
+            }
+
             nivelesGenerados.push({
                 nivel:i+1, tipo_motor: tipoMotor,
-                instruccion_texto: `¡Toca ${correcto.articulo} ${correcto.nombre}!`,
+                instruccion_texto: textoInstruccion,
                 opciones: [
                     {...correcto, esCorrecto:true},
                     ...distractores.map(d=>({...d, esCorrecto:false})),

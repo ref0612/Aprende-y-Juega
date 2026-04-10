@@ -1,5 +1,5 @@
-// sw.js v3.1
-const CACHE_NAME = 'aprende-y-juega-v3.1';
+// sw.js v3.2
+const CACHE_NAME = 'aprende-y-juega-v3.2';
 
 const ASSETS = [
     './',
