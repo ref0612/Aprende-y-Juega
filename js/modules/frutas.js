@@ -43,9 +43,17 @@ export default class FrutasGame extends GameEngine {
         const botones = this.contenedor.querySelectorAll('.game-card');
         botones.forEach(b => b.style.pointerEvents = 'none');
 
+        // Determinar el artículo correcto ('el', 'la', 'los', 'las')
+        let articulo;
+        if (op.nombre.endsWith('s')) {
+            articulo = op.genero === 'femenino' ? 'las' : 'los';
+        } else {
+            articulo = op.genero === 'femenino' ? 'la' : 'el';
+        }
+
         if (op.esCorrecto) {
             this.renderFeedback(true, cardEl);
-            this.hablar(`¡Muy bien! El ${op.nombre} es ${op.respuesta || 'correcto'}. ¡Excelente!`);
+            this.hablar(`¡Muy bien! ${articulo} ${op.nombre} es ${op.respuesta || 'correcto'}. ¡Excelente!`);
             setTimeout(() => this.onWin(), 2200);
         } else {
             this.renderFeedback(false, cardEl);
